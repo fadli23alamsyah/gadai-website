@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
+
+.logo{
+    font-family: 'ultra';
+    text-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+    /* color: #FBCB87; */
+    color: #FFBF00;
+}
+
+#datatables_length{
+    margin-bottom: 20px;
+}
+
+#datatables_length select{
+    padding-right: 20px;
+    background-position: right center;
+    background-size: 23px;
+    border-radius: 0.75em;
+    border-color: #F49D1A;
+    border-width: 0.125em;
+}
+
+#datatables_filter{
+    margin-bottom: 20px;
+}
+
+#datatables_filter input{
+    border-radius: 0.75em;
+    border-color: #F49D1A;
+    border-width: 0.125em;
+    outline: none;
+}
+
+/* #datatables_filter input:focus{
+    outline: 0.125em solid #f49d1ab9;
+    outline-offset: 2px;
+} */
+
+#datatables_paginate .paginate_button{
+    border-radius: 0.75em;
+}
+
+#datatables_paginate .current{
+    background-color: #57429D;
+    color: white !important;
+}
+
+::-webkit-scrollbar{
+    width: 8px;
+}
+
+::-webkit-scrollbar-track{
+    border-radius: 30px;
+    box-shadow: inset 0 0 5px grey;
+    background-color: rgb(147 51 234);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FFBF00;
+    border-radius: 10px;
+}
