@@ -42,13 +42,13 @@ export default function UpdatePasswordForm({ className }) {
                 <h2 className="text-lg font-medium text-gray-900">Update Password</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Ensure your account is using a long, random password to stay secure.
+                    Selalu update password anda untuk meningkatkan keamanan akun anda
                 </p>
             </header>
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel for="current_password" value="Current Password" />
+                    <InputLabel for="current_password" value="Password Lama" />
 
                     <TextInput
                         id="current_password"
@@ -64,7 +64,7 @@ export default function UpdatePasswordForm({ className }) {
                 </div>
 
                 <div>
-                    <InputLabel for="password" value="New Password" />
+                    <InputLabel for="password" value="Password Baru" />
 
                     <TextInput
                         id="password"
@@ -80,7 +80,7 @@ export default function UpdatePasswordForm({ className }) {
                 </div>
 
                 <div>
-                    <InputLabel for="password_confirmation" value="Confirm Password" />
+                    <InputLabel for="password_confirmation" value="Password Baru Lagi" />
 
                     <TextInput
                         id="password_confirmation"

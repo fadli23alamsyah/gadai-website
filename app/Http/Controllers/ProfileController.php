@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
+use function Psy\debug;
+
 class ProfileController extends Controller
 {
     /**
@@ -35,7 +37,7 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
+        if (Auth::user()->role == 'admin' && $request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
