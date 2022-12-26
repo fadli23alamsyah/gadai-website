@@ -42,15 +42,19 @@ export default function Authenticated({ auth, header, children }) {
                         <FontAwesomeIcon icon={faDollyBox} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Harga Pasar Barang</span>
                     </NavLink>
-                    <div className='ml-2 text-white font-bold'>Admin Menu</div>
-                    <NavLink href={route('dashboard')} active={route().current('marketprice')}>
-                        <FontAwesomeIcon icon={faStore} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
-                        <span className='text-white ml-3'>Toko</span>
-                    </NavLink>
-                    <NavLink href={route('dashboard')} active={route().current('marketprice')}>
-                        <FontAwesomeIcon icon={faIdCard} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
-                        <span className='text-white ml-3'>Staf</span>
-                    </NavLink>
+                    {(auth.user.role == 'admin') && 
+                        <>
+                            <div className='ml-2 text-white font-bold'>Admin Menu</div>
+                            <NavLink href={route('dashboard')} active={route().current('marketprice')}>
+                                <FontAwesomeIcon icon={faStore} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
+                                <span className='text-white ml-3'>Toko</span>
+                            </NavLink>
+                            <NavLink href={route('dashboard')} active={route().current('marketprice')}>
+                                <FontAwesomeIcon icon={faIdCard} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
+                                <span className='text-white ml-3'>Staf</span>
+                            </NavLink>
+                        </>
+                    }
                 </div>
                 
                 {showSideNavigation && <div className="fixed inset-0 z-40 backdrop-blur-sm lg:hidden" onClick={() => setShowSideNavigation(false)}></div>}
