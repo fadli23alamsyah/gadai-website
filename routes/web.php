@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StoreController;
+use App\Models\Store;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,8 +32,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::middleware(['auth', 'verified'])->group(function (){
-//     Route::get('/customer', fun() => Inertia)
-// });
+Route::middleware(['auth', 'verified'])->group(function (){
+    // Store
+    Route::get('/store', [StoreController::class, 'index'])->name('store');
+    Route::post('/store', [StoreController::class, 'store'])->name('store.store');
+    Route::put('/store', [StoreController::class, 'update'])->name('store.update');
+    Route::delete('/store', [StoreController::class, 'destroy'])->name('store.delete');
+    Route::get('/store/add', function(){return Inertia::render('Store/FormStore');} )->name('store.add');
+    Route::get('/store/edit/{store}', fn(Store $store) => Inertia::render('Store/FormStore',["store"=> $store]) )->name('store.edit');
+});
 
 require __DIR__.'/auth.php';

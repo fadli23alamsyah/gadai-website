@@ -45,11 +45,11 @@ export default function Authenticated({ auth, header, children }) {
                     {(auth.user.role == 'admin') && 
                         <>
                             <div className='ml-2 text-white font-bold'>Admin Menu</div>
-                            <NavLink href={route('dashboard')} active={route().current('marketprice')}>
+                            <NavLink href={route('store')} active={route().current().split('.')[0] == 'store'}>
                                 <FontAwesomeIcon icon={faStore} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                                 <span className='text-white ml-3'>Toko</span>
                             </NavLink>
-                            <NavLink href={route('dashboard')} active={route().current('marketprice')}>
+                            <NavLink href={route('dashboard')} active={route().current('staf')}>
                                 <FontAwesomeIcon icon={faIdCard} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                                 <span className='text-white ml-3'>Staf</span>
                             </NavLink>
