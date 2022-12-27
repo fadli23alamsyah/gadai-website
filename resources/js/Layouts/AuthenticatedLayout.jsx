@@ -38,7 +38,7 @@ export default function Authenticated({ auth, header, children }) {
                         <FontAwesomeIcon icon={faHandshakeAngle} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Tebus</span>
                     </NavLink>
-                    <NavLink href={route('dashboard')} active={route().current('marketprice')}>
+                    <NavLink href={route('marketprice')} active={route().current().split('.')[0] == 'marketprice'}>
                         <FontAwesomeIcon icon={faDollyBox} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Harga Pasar Barang</span>
                     </NavLink>

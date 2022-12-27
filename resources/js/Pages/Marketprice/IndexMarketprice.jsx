@@ -10,10 +10,10 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
 
-export default function IndexStore(props){
+export default function IndexMarketprice(props){
     const [message, setMessage] = useState(props.flash.message)
     const [isShow, setIsShow] = useState(false)
-    const [store, setStore] = useState({})
+    const [marketprice, setMarketprice] = useState({})
 
     useEffect(()=>{
         if(message) close()
@@ -28,20 +28,20 @@ export default function IndexStore(props){
     }
 
     const closeModal = () => {
-        setStore({});
+        setMarketprice({});
         setIsShow(false);
     }
 
-    const showModal = (store) => {
-        setStore(store);
+    const showModal = (marketprice) => {
+        setMarketprice(marketprice);
         setIsShow(true);
     }
 
-    const deleteStore = () => {
-        Inertia.visit(route('store.delete'),{ 
-            data: store, method: 'delete',
+    const deleteMarketprice = () => {
+        Inertia.visit(route('marketprice.delete'),{ 
+            data: marketprice, method: 'delete',
         });
-        setStore({});
+        setMarketprice({});
         setIsShow(false);
     }
 
@@ -49,15 +49,17 @@ export default function IndexStore(props){
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="text-xl font-extrabold text-gray-800 leading-tight">Data Toko</h2>}
+            header={<h2 className="text-xl font-extrabold text-gray-800 leading-tight">Data Harga Pasaran</h2>}
         >
-            <Head title="Data Toko" />
+            <Head title="Data Harga Pasaran" />
 
             <div className='py-1 -mx-4'>
                 <div className='flex flex-col px-5 lg:pt-5'>
-                    <ClickEffect href={route('store.add')} className="inline-block ml-auto bg-[#F49D1A]/60 border-[#F49D1A] shadow-[0_0.25em_0_#F49D1A] hover:bg-[#F49D1A]/70">
-                        <p className='text-md mx-4 my-1 font-bold text-black'>Tambah Data</p>
-                    </ClickEffect>
+                    {props.auth.user.role === 'admin' && (
+                        <ClickEffect href={route('marketprice.add')} className="inline-block ml-auto bg-[#F49D1A]/60 border-[#F49D1A] shadow-[0_0.25em_0_#F49D1A] hover:bg-[#F49D1A]/70">
+                            <p className='text-md mx-4 my-1 font-bold text-black'>Tambah Data</p>
+                        </ClickEffect>
+                    )}
                     
                     {message && <div className={`w-full text-white rounded-md ${props.flash.isSuccess ? 'bg-green-500' : 'bg-red-500'} px-4 py-2 mt-6`}>{message}</div>}
                     <div className='mt-8 p-3 shadow-inner rounded-lg bg-[#fafafc]'>
@@ -65,8 +67,9 @@ export default function IndexStore(props){
                             <thead className='bg-[#57429D] text-white'>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Toko</th>
-                                    <th>Alamat</th>
+                                    <th>Tanggal Update</th>
+                                    <th>Tipe</th>
+                                    <th>Harga</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -74,13 +77,14 @@ export default function IndexStore(props){
                                 {props.data.map((item, i)=>
                                     <tr key={i}>
                                         <td>{i+1}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.address}</td>
+                                        <td>{item.date}</td>
+                                        <td>{item.type}</td>
+                                        <td>{item.price}</td>
                                         <td>
                                             <DangerButton type="button" onClick={() => showModal(item)}>
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </DangerButton>
-                                            <PrimaryButton type="button" onClick={() =>  window.location = route('store.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
+                                            <PrimaryButton type="button" onClick={() =>  window.location = route('marketprice.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
                                                 <FontAwesomeIcon icon={faEdit} />
                                             </PrimaryButton>
                                         </td>
@@ -96,12 +100,12 @@ export default function IndexStore(props){
             <Modal show={isShow} maxWidth="md" onClose={closeModal}>
                 <div className="p-4">
                     <h3 className="text-center text-xl font-bold">Hapus Data</h3>
-                    <div className="mt-4">Apakah anda yakin ingin menghapus {store.name}</div>
+                    <div className="mt-4">Apakah anda yakin ingin menghapus {marketprice.type}</div>
                     <div className="mt-5 mb-3 float-right">
                         <DangerButton type="button" onClick={closeModal}>
                             Tutup
                         </DangerButton>
-                        <PrimaryButton type="button" onClick={deleteStore} className="sm:ml-2 sm:mt-0 mt-2">
+                        <PrimaryButton type="button" onClick={deleteMarketprice} className="sm:ml-2 sm:mt-0 mt-2">
                             Hapus
                         </PrimaryButton>
                     </div>

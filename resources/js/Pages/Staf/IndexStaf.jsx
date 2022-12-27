@@ -123,7 +123,7 @@ export default function IndexStaf(props){
                 </div>
             </Modal>
 
-            {/* Modal Edit */}
+            {/* Modal Delete */}
             <Modal show={isShow} maxWidth="md" onClose={closeModal}>
                 <div className="p-4">
                     <h3 className="text-center text-xl font-bold">Hapus Data</h3>
