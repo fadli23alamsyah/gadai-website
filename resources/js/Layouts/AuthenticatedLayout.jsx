@@ -49,7 +49,7 @@ export default function Authenticated({ auth, header, children }) {
                                 <FontAwesomeIcon icon={faStore} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                                 <span className='text-white ml-3'>Toko</span>
                             </NavLink>
-                            <NavLink href={route('dashboard')} active={route().current('staf')}>
+                            <NavLink href={route('staf')} active={route().current().split('.')[0] == 'staf'}>
                                 <FontAwesomeIcon icon={faIdCard} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                                 <span className='text-white ml-3'>Staf</span>
                             </NavLink>

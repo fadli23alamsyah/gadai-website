@@ -28,24 +28,21 @@ export default function IndexStore(props){
     }
 
     const closeModal = () => {
-        setStore({})
-        setIsShow(false)
+        setStore({});
+        setIsShow(false);
     }
 
     const showModal = (store) => {
-        setStore(store)
-        setIsShow(true)
+        setStore(store);
+        setIsShow(true);
     }
 
     const deleteStore = () => {
-        Inertia.delete(
-            route('store.delete'), 
-            { data: store, method: 'delete', onStart: ()=>{
-                window.location.reload()
-                setStore({})
-            }
-        })
-        setIsShow(false)
+        Inertia.visit(route('store.delete'),{ 
+            data: store, method: 'delete',
+        });
+        setStore({});
+        setIsShow(false);
     }
 
     return (
