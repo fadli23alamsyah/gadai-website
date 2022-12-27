@@ -35,25 +35,27 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function (){
-    // Store
-    Route::get('/store', [StoreController::class, 'index'])->name('store');
-    Route::post('/store', [StoreController::class, 'store'])->name('store.store');
-    Route::put('/store', [StoreController::class, 'update'])->name('store.update');
-    Route::delete('/store', [StoreController::class, 'destroy'])->name('store.delete');
-    Route::get('/store/add', function(){return Inertia::render('Store/FormStore');} )->name('store.add');
-    Route::get('/store/edit/{store}', fn(Store $store) => Inertia::render('Store/FormStore',["store"=> $store]) )->name('store.edit');
-
-    // Staf
-    Route::get('/staf', [StafController::class, 'index'])->name('staf');
-    Route::post('/staf', [StafController::class, 'store'])->name('staf.store');
-    Route::put('/staf', [StafController::class, 'update'])->name('staf.update');
-    Route::delete('/staf', [StafController::class, 'destroy'])->name('staf.delete');
-    Route::put('/staf/reset', [StafController::class, 'resetPassword'])->name('staf.reset');
-    Route::get('/staf/add', fn()=> Inertia::render('Staf/FormStaf'))->name('staf.add');
-    Route::get('/staf/edit/{staf}', function(User $staf){
-        if($staf->role == 'staf') return Inertia::render('Staf/FormStaf', ["staf" => $staf]);
-        return to_route('staf')->with("message","Anda tidak dapat mengedit data admin !!!");
-    })->name('staf.edit');
+    Route::middleware(['isAdmin'])->group(function(){
+        // Store
+        Route::get('/store', [StoreController::class, 'index'])->name('store');
+        Route::post('/store', [StoreController::class, 'store'])->name('store.store');
+        Route::put('/store', [StoreController::class, 'update'])->name('store.update');
+        Route::delete('/store', [StoreController::class, 'destroy'])->name('store.delete');
+        Route::get('/store/add', function(){return Inertia::render('Store/FormStore');} )->name('store.add');
+        Route::get('/store/edit/{store}', fn(Store $store) => Inertia::render('Store/FormStore',["store"=> $store]) )->name('store.edit');
+    
+        // Staf
+        Route::get('/staf', [StafController::class, 'index'])->name('staf');
+        Route::post('/staf', [StafController::class, 'store'])->name('staf.store');
+        Route::put('/staf', [StafController::class, 'update'])->name('staf.update');
+        Route::delete('/staf', [StafController::class, 'destroy'])->name('staf.delete');
+        Route::put('/staf/reset', [StafController::class, 'resetPassword'])->name('staf.reset');
+        Route::get('/staf/add', fn()=> Inertia::render('Staf/FormStaf'))->name('staf.add');
+        Route::get('/staf/edit/{staf}', function(User $staf){
+            if($staf->role == 'staf') return Inertia::render('Staf/FormStaf', ["staf" => $staf]);
+            return to_route('staf')->with("message","Anda tidak dapat mengedit data admin !!!");
+        })->name('staf.edit');
+    });
 });
 
 require __DIR__.'/auth.php';
