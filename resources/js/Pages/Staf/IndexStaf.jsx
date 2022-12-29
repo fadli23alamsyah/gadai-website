@@ -21,8 +21,10 @@ export default function IndexStaf(props){
     }, [])
 
     const close = ()=>{
-        setInterval(()=>{
+        setTimeout(()=>{
             setMessage('')
+            props.flash.isSuccess = null
+            props.flash.message = null
         }, 3000)
     }
 

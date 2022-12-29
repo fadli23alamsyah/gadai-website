@@ -58,11 +58,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
         Route::put('/staf', [StafController::class, 'update'])->name('staf.update');
         Route::delete('/staf', [StafController::class, 'destroy'])->name('staf.delete');
         Route::put('/staf/reset', [StafController::class, 'resetPassword'])->name('staf.reset');
-        Route::get('/staf/add', fn()=> Inertia::render('Staf/FormStaf'))->name('staf.add');
-        Route::get('/staf/edit/{staf}', function(User $staf){
-            if($staf->role == 'staf') return Inertia::render('Staf/FormStaf', ["staf" => $staf]);
-            return to_route('staf')->with("message","Anda tidak dapat mengedit data admin !!!");
-        })->name('staf.edit');
+        Route::get('/staf/add', [StafController::class, 'add'])->name('staf.add');
+        Route::get('/staf/edit/{staf:username}', [StafController::class, 'edit'])->name('staf.edit');
     });
 });
 

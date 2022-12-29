@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use Illuminate\Validation\Rule;
 
 class StafController extends Controller
 {
@@ -14,6 +16,11 @@ class StafController extends Controller
         return Inertia::render('Staf/IndexStaf',[
             "data" => $data,
         ]);
+    }
+
+    public function add(){
+        $stores = Store::get();
+        return Inertia::render('Staf/FormStaf', ["stores" => $stores]);
     }
 
     public function store(Request $request){
@@ -27,21 +34,31 @@ class StafController extends Controller
         $data["password"] = Hash::make('123456');
         $data["role"] = "staf";
 
-        if(User::create($data)){
+        $newStaf = User::create($data);
+        if($newStaf){
+            if($request->store) $newStaf->stores()->sync($request->store);
             return to_route('staf')->with("isSuccess", true)->with("message","Berhasil menambahkan");
         }
         return to_route('staf')->with("isSuccess", false)->with("message","Gagal menambahkan");
     }
 
+    public function edit(User $staf){
+        $stores = Store::get();
+        $myStores = User::where('id', $staf->id)->first()->stores;
+        if($staf->role == 'staf') return Inertia::render('Staf/FormStaf', ["staf" => $staf, "myStores"=> $myStores, "stores" => $stores]);
+        return to_route('staf')->with("message","Anda tidak dapat mengedit data admin !!!");
+    }
+
     public function update(Request $request){
         $data = $request->validate([
             "name" => "required|string|max:255",
-            "username" => "required|string|min:6|max:255|unique:".User::class,
+            "username" => "required|string|min:6|max:255|".Rule::unique(User::class)->ignore($request->id),
         ]);
         $data["username"] = strtolower($data["username"]);
         $data["role"] = "staf";
 
         if(User::where('id', $request->id)->update($data)){
+            if($request->store) User::where('id', $request->id)->first()->stores()->sync($request->store);
             return to_route('staf')->with("isSuccess", true)->with("message","Berhasil diupdate");
         }
         return to_route('staf')->with("isSuccess", false)->with("message","Gagal diupdate");

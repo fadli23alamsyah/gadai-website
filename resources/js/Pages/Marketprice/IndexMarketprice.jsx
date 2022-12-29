@@ -70,7 +70,7 @@ export default function IndexMarketprice(props){
                                     <th>Tanggal Update</th>
                                     <th>Tipe</th>
                                     <th>Harga</th>
-                                    <th>Aksi</th>
+                                    {props.auth.user.role === 'admin' && <th>Aksi</th>}
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,14 +80,16 @@ export default function IndexMarketprice(props){
                                         <td>{item.date}</td>
                                         <td>{item.type}</td>
                                         <td>{item.price}</td>
-                                        <td>
-                                            <DangerButton type="button" onClick={() => showModal(item)}>
-                                                <FontAwesomeIcon icon={faTrash} />
-                                            </DangerButton>
-                                            <PrimaryButton type="button" onClick={() =>  window.location = route('marketprice.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
-                                                <FontAwesomeIcon icon={faEdit} />
-                                            </PrimaryButton>
-                                        </td>
+                                        { props.auth.user.role === 'admin' && (
+                                            <td>
+                                                <DangerButton type="button" onClick={() => showModal(item)}>
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </DangerButton>
+                                                <PrimaryButton type="button" onClick={() =>  window.location = route('marketprice.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
+                                                    <FontAwesomeIcon icon={faEdit} />
+                                                </PrimaryButton>
+                                            </td>
+                                        )}
                                     </tr>
                                 )}
                             </tbody>
