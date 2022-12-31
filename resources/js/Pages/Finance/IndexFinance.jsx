@@ -66,7 +66,7 @@ export default function IndexFinance(props){
                                 <tr>
                                     <th>No</th>
                                     <th>Tanggal</th>
-                                    <th>Jenis</th>
+                                    <th>Status</th>
                                     <th>Total</th>
                                     <th>Toko</th>
                                     <th>Sumber</th>
@@ -77,8 +77,11 @@ export default function IndexFinance(props){
                                 {props.data.map((item, i)=>
                                     <tr key={i}>
                                         <td>{i+1}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.address}</td>
+                                        <td>{item.date}</td>
+                                        <td>{item.status === 'in' ? 'Pendapatan' : 'Pengeluaran'}</td>
+                                        <td className={item.status === 'in' ? 'text-green-600 font-bold' : 'text-red-600'}>{item.total}</td>
+                                        <td>{item.store.name}</td>
+                                        <td>{item.source}</td>
                                         <td>
                                             <DangerButton type="button" onClick={() => showModal(item)}>
                                                 <FontAwesomeIcon icon={faTrash} />

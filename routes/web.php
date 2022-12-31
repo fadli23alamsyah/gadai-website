@@ -41,8 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::post('/finance', [FinanceController::class, 'store'])->name('finance.store');
     Route::put('/finance', [FinanceController::class, 'update'])->name('finance.update');
     Route::delete('/finance', [FinanceController::class, 'destroy'])->name('finance.delete');
-    Route::get('/finance/add', [FinanceController::class, 'index'])->name('finance.add');
-    Route::get('/finance/edit/{finance}', [FinanceController::class, 'index'])->name('finance.edit');
+    Route::get('/finance/add', [FinanceController::class, 'add'])->name('finance.add');
+    Route::get('/finance/edit/{finance}', [FinanceController::class, 'edit'])->name('finance.edit');
 
     // Market Price
     Route::get('/marketprice', [MarketPriceController::class, 'index'])->name('marketprice');

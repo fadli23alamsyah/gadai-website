@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('status', ['in', 'out']);
             $table->string('total',256);
             $table->text('source');
-            $table->foreignId('store_id');
+            $table->foreignId('store_id')->constrained('stores');
             $table->timestamps();
         });
     }
