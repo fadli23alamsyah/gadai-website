@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\MarketPriceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StafController;
@@ -34,6 +35,14 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     // Dashboard
     Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
+
+    // Finance
+    Route::get('/finance', [FinanceController::class, 'index'])->name('finance');
+    Route::post('/finance', [FinanceController::class, 'store'])->name('finance.store');
+    Route::put('/finance', [FinanceController::class, 'update'])->name('finance.update');
+    Route::delete('/finance', [FinanceController::class, 'destroy'])->name('finance.delete');
+    Route::get('/finance/add', [FinanceController::class, 'index'])->name('finance.add');
+    Route::get('/finance/edit/{finance}', [FinanceController::class, 'index'])->name('finance.edit');
 
     // Market Price
     Route::get('/marketprice', [MarketPriceController::class, 'index'])->name('marketprice');

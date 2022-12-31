@@ -26,7 +26,7 @@ export default function Authenticated({ auth, header, children }) {
                         <FontAwesomeIcon icon={faUsers} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Data Pelanggan</span>
                     </NavLink>
-                    <NavLink href={route('login')} active={route().current('finance')}>
+                    <NavLink href={route('finance')} active={route().current().split('.')[0] == 'finance'}>
                         <FontAwesomeIcon icon={faChartBar} className="text-white bg-[#FFBF00] p-2 px-[9px] rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Keuangan</span>
                     </NavLink>
@@ -34,9 +34,9 @@ export default function Authenticated({ auth, header, children }) {
                         <FontAwesomeIcon icon={faCalendarAlt} className="text-white bg-[#FFBF00] p-2 px-[10px] rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Jatuh Tempo</span>
                     </NavLink>
-                    <NavLink href={route('dashboard')} active={route().current('redeem')}>
+                    <NavLink href={route('dashboard')} active={route().current('release')}>
                         <FontAwesomeIcon icon={faHandshakeAngle} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
-                        <span className='text-white ml-3'>Tebus</span>
+                        <span className='text-white ml-3'>Tebus / Lelang</span>
                     </NavLink>
                     <NavLink href={route('marketprice')} active={route().current().split('.')[0] == 'marketprice'}>
                         <FontAwesomeIcon icon={faDollyBox} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
