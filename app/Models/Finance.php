@@ -16,10 +16,10 @@ class Finance extends Model
     }
 
     public function pawn(){
-        return $this->belongsTo(Pawn::class);
+        return $this->hasOne(Pawn::class);
     }
 
     public function release(){
-        return $this->belongsTo(Release::class);
+        return $this->hasOne(Release::class);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\MarketPriceController;
 use App\Http\Controllers\ProfileController;
@@ -35,6 +36,14 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     // Dashboard
     Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
+    
+    // Customer
+    Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
+    Route::post('/customer', [CustomerController::class, 'store'])->name('customer.store');
+    Route::put('/customer', [CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('/customer', [CustomerController::class, 'destroy'])->name('customer.delete');
+    Route::get('/customer/add', [CustomerController::class, 'add'])->name('customer.add');
+    Route::get('/customer/edit/{pawn}', [CustomerController::class, 'edit'])->name('customer.edit');
 
     // Finance
     Route::get('/finance', [FinanceController::class, 'index'])->name('finance');

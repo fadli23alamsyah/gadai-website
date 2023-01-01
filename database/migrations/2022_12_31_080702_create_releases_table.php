@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pawns', function (Blueprint $table) {
+        Schema::create('releases', function (Blueprint $table) {
             $table->id();
-            $table->string('type',256);
+            $table->string('main',256);
             $table->string('interest',256);
-            $table->text('additional');
-            $table->foreignId('customer_id');
-            $table->foreignId('finance_id');
-            $table->foreignId('store_id');
+            $table->enum('status',['redeem','auction']);
+            $table->foreignId('pawn_id')->constrained('pawns');
+            $table->foreignId('customer_id')->constrained('customers');
+            $table->foreignId('finance_id')->constrained('finances');
+            $table->foreignId('store_id')->constrained('stores');
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pawns');
+        Schema::dropIfExists('releases');
     }
 };

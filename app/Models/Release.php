@@ -8,4 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Release extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function finance(){
+        return $this->belongsTo(Finance::class);
+    }
+
+    public function store(){
+        return $this->belongsTo(Store::class);
+    }
+
+    public function pawn(){
+        return $this->belongsTo(Pawn::class);
+    }
 }

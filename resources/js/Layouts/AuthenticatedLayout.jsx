@@ -22,7 +22,7 @@ export default function Authenticated({ auth, header, children }) {
                         <FontAwesomeIcon icon={faHouse} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Dashboard</span>
                     </NavLink>
-                    <NavLink href={route('login')} active={route().current('customer')}>
+                    <NavLink href={route('customer')} active={route().current().split('.')[0] == 'customer'}>
                         <FontAwesomeIcon icon={faUsers} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Data Pelanggan</span>
                     </NavLink>
