@@ -83,12 +83,16 @@ export default function IndexFinance(props){
                                         <td>{item.store.name}</td>
                                         <td>{item.source}</td>
                                         <td>
-                                            <DangerButton type="button" onClick={() => showModal(item)}>
-                                                <FontAwesomeIcon icon={faTrash} />
-                                            </DangerButton>
-                                            <PrimaryButton type="button" onClick={() =>  window.location = route('finance.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
-                                                <FontAwesomeIcon icon={faEdit} />
-                                            </PrimaryButton>
+                                            {(!item.pawn && !item.release) ? (
+                                                <>
+                                                    <DangerButton type="button" onClick={() => showModal(item)}>
+                                                        <FontAwesomeIcon icon={faTrash} />
+                                                    </DangerButton>
+                                                    <PrimaryButton type="button" onClick={() =>  window.location = route('finance.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
+                                                        <FontAwesomeIcon icon={faEdit} />
+                                                    </PrimaryButton>
+                                                </>
+                                            ) : 'Tidak Ada Aksi'}
                                         </td>
                                     </tr>
                                 )}
