@@ -77,7 +77,7 @@ export default function IndexFinance(props){
                                 {props.data.map((item, i)=>
                                     <tr key={i}>
                                         <td>{i+1}</td>
-                                        <td>{item.date}</td>
+                                        <td>{new Date(item.date).toLocaleDateString("id")}</td>
                                         <td>{item.status === 'in' ? 'Pendapatan' : 'Pengeluaran'}</td>
                                         <td className={item.status === 'in' ? 'text-green-600 font-bold' : 'text-red-600'}>{item.total}</td>
                                         <td>{item.store.name}</td>

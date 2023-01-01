@@ -78,7 +78,7 @@ export default function IndexCustomer(props){
                                 {props.data.map((item, i)=>
                                     <tr key={i}>
                                         <td>{i+1}</td>
-                                        <td>{item.finance.date}</td>
+                                        <td>{new Date(item.finance.date).toLocaleDateString("id")}</td>
                                         <td>{item.customer.name}</td>
                                         <td>{item.type}</td>
                                         <td>{item.finance.total}</td>
