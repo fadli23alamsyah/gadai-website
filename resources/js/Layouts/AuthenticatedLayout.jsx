@@ -30,7 +30,7 @@ export default function Authenticated({ auth, header, children }) {
                         <FontAwesomeIcon icon={faChartBar} className="text-white bg-[#FFBF00] p-2 px-[9px] rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Keuangan</span>
                     </NavLink>
-                    <NavLink href={route('dashboard')} active={route().current('deadline')}>
+                    <NavLink href={route('deadline')} active={route().current('deadline')}>
                         <FontAwesomeIcon icon={faCalendarAlt} className="text-white bg-[#FFBF00] p-2 px-[10px] rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Jatuh Tempo</span>
                     </NavLink>

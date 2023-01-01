@@ -49,7 +49,7 @@ class CustomerController extends Controller
             'date' => date('Y-m-d'),
             'total' => $request->total,
             'status' => 'out',
-            'source' => 'Pengambilan dana oleh '.$request->name.' dengan menggadaikan '.$request->type,
+            'source' => 'Gadai '.$request->type.' oleh '.$request->name,
             'store_id' => $request->store_id,
         ])->pawn()->create([
             'type' => $request->type,

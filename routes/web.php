@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DeadlineController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\MarketPriceController;
 use App\Http\Controllers\ProfileController;
@@ -46,6 +47,9 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/customer/edit/{pawn}', [CustomerController::class, 'edit'])->name('customer.edit');
     Route::get('/customer/show/{pawn}', [CustomerController::class, 'show'])->name('customer.show');
     Route::post('/customer/release/{pawn}', [CustomerController::class, 'release'])->name('customer.release');
+
+    // Deadline
+    Route::get('/deadline', [DeadlineController::class, 'index'])->name('deadline');
 
     // Finance
     Route::get('/finance', [FinanceController::class, 'index'])->name('finance');
