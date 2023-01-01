@@ -164,8 +164,8 @@ class CustomerController extends Controller
         ]);
 
         if($save){
-            return to_route('customer')->with("isSuccess", true)->with("message","Berhasil menambahkan");
+            return to_route('customer')->with("isSuccess", true)->with("message",$request->status === 'auction'? 'Berhasil dilelang' : 'Berhasil ditebus');
         }
-        return to_route('customer')->with("isSuccess", false)->with("message","Gagal menambahkan");
+        return to_route('customer')->with("isSuccess", false)->with("message",$request->status === 'auction'? 'Gagal dilelang' : 'Gagal ditebus');
     }
 }
