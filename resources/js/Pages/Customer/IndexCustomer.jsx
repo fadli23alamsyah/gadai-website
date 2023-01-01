@@ -6,7 +6,7 @@ import { Head } from '@inertiajs/inertia-react';
 import DangerButton from "@/Components/DangerButton";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
 
@@ -91,6 +91,9 @@ export default function IndexCustomer(props){
                                             <PrimaryButton type="button" onClick={() =>  window.location = route('customer.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
                                                 <FontAwesomeIcon icon={faEdit} />
                                             </PrimaryButton>
+                                            <button type="button" onClick={() =>  window.location = route('customer.show',[item])} className="bg-purple-600 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-600/70 focus:bg-purple-600 active:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 sm:ml-2 sm:mt-0 mt-2">
+                                                <FontAwesomeIcon icon={faEye} />
+                                            </button>
                                         </td>
                                     </tr>
                                 )}

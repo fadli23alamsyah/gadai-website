@@ -99,7 +99,7 @@ class CustomerController extends Controller
         ]);
         $pawn->finance()->update([
             'total' => $request->total,
-            'source' => 'Pengambilan dana oleh '.$request->name.' dengan menggadaikan '.$request->type,
+            'source' => 'Gadai '.$request->type.' oleh '.$request->name,
             'store_id' => $request->store_id,
         ]);
 
@@ -119,5 +119,53 @@ class CustomerController extends Controller
             return to_route('customer')->with("isSuccess", true)->with("message","Berhasil dihapus");
         }
         return to_route('customer')->with("isSuccess", false)->with("message","Gagal dihapus");
+    }
+
+    public function show(Pawn $pawn){
+        if($pawn) return Inertia::render('Customer/ShowCustomer',[
+            "pawn" => $pawn->store,
+            "pawn" => $pawn->customer,
+            "pawn" => $pawn->finance,
+            "pawn" => $pawn,
+        ]);
+        return to_route('customer')->with("isSuccess", false)->with("message","Gagal menampilkan detail data");
+    }
+
+    public function release(Request $request, Pawn $pawn){
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required|numeric',
+            'status' => 'required|in:redeem,auction',
+            'main' => 'required|numeric',
+            'interest' => 'required|numeric',
+            'total' => 'required|numeric',
+        ]);
+
+        if($request->status === 'auction'){
+            $customer = Customer::create([
+                'name' => $request->name,
+                'phone' => $request->phone,
+            ]);
+        }
+
+        $save = Finance::create([
+            'date' => date('Y-m-d'),
+            'total' => $request->total,
+            'status' => 'in',
+            'source' => ($request->status === 'auction' ? 'Lelang ' : 'Tebus ') .$pawn->type .' oleh '.$request->name,
+            'store_id' => $pawn->store_id,
+        ])->release()->create([
+            'main' => $request->main,
+            'interest' => $request->interest,
+            'status' => $request->status,
+            'pawn_id' => $pawn->id,
+            'customer_id' => $request->status === 'auction'? $customer->id : $pawn->customer_id,
+            'store_id' => $pawn->store_id,
+        ]);
+
+        if($save){
+            return to_route('customer')->with("isSuccess", true)->with("message","Berhasil menambahkan");
+        }
+        return to_route('customer')->with("isSuccess", false)->with("message","Gagal menambahkan");
     }
 }

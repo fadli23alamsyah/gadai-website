@@ -44,6 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::delete('/customer', [CustomerController::class, 'destroy'])->name('customer.delete');
     Route::get('/customer/add', [CustomerController::class, 'add'])->name('customer.add');
     Route::get('/customer/edit/{pawn}', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::get('/customer/show/{pawn}', [CustomerController::class, 'show'])->name('customer.show');
+    Route::post('/customer/release/{pawn}', [CustomerController::class, 'release'])->name('customer.release');
 
     // Finance
     Route::get('/finance', [FinanceController::class, 'index'])->name('finance');
