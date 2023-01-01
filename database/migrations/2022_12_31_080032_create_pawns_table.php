@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('type',256);
             $table->string('interest',256);
-            $table->text('additional');
+            $table->text('additional')->nullable();
             $table->foreignId('customer_id')->constrained('customers');
             $table->foreignId('finance_id')->constrained('finances');
             $table->foreignId('store_id')->constrained('stores');
