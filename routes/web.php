@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeadlineController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\MarketPriceController;
@@ -37,7 +38,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Dashboard
-    Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/dashboard', [DashboardController::class, 'select_store'])->name('dashboard.selectStore');
     
     // Customer
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
