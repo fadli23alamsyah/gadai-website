@@ -41,6 +41,10 @@ export default function ShowCustomer(props){
         setData(event.target.name, event.target.value);
     };
 
+    const onHandleTypeNumberRupiah = (event) => {
+        setData(event.target.name, event.target.value.replace(/[^0-9]/g,''));
+    }
+
     const submit = (e) => {
         e.preventDefault();
 
@@ -167,11 +171,10 @@ export default function ShowCustomer(props){
                             <TextInput
                                 id="main"
                                 name="main"
-                                type="number"
-                                value={data.main}
+                                value={formatRupiah(data.main)}
                                 className="mt-1 block w-full"
                                 autoComplete="main"
-                                handleChange={onHandleChange}
+                                handleChange={onHandleTypeNumberRupiah}
                             />
 
                             <InputError message={errors.main} className="mt-2" />
@@ -183,11 +186,10 @@ export default function ShowCustomer(props){
                             <TextInput
                                 id="interest"
                                 name="interest"
-                                type="number"
-                                value={data.interest}
+                                value={formatRupiah(data.interest)}
                                 className="mt-1 block w-full"
                                 autoComplete="interest"
-                                handleChange={onHandleChange}
+                                handleChange={onHandleTypeNumberRupiah}
                             />
 
                             <InputError message={errors.interest} className="mt-2" />
@@ -199,11 +201,10 @@ export default function ShowCustomer(props){
                             <TextInput
                                 id="total"
                                 name="total"
-                                type="number"
-                                value={data.total}
+                                value={formatRupiah(data.total)}
                                 className="mt-1 block w-full"
                                 autoComplete="total"
-                                handleChange={onHandleChange}
+                                handleChange={onHandleTypeNumberRupiah}
                             />
 
                             <InputError message={errors.total} className="mt-2" />

@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/inertia-react';
 import DangerButton from "@/Components/DangerButton";
+import { formatRupiah } from "@/Utils/utilstext";
 
 export default function FormCustomer(props){
     const { data, setData, post, put, processing, errors, reset } = useForm({
@@ -22,6 +23,10 @@ export default function FormCustomer(props){
     const onHandleChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
     };
+
+    const onHandleTypeNumberRupiah = (event) => {
+        setData(event.target.name, event.target.value.replace(/[^0-9]/g,''));
+    }
 
     const submit = (e) => {
         e.preventDefault();
@@ -126,11 +131,10 @@ export default function FormCustomer(props){
                             <TextInput
                                 id="total"
                                 name="total"
-                                type="number"
-                                value={data.total}
+                                value={formatRupiah(data.total)}
                                 className="mt-1 block w-full"
                                 autoComplete="total"
-                                handleChange={onHandleChange}
+                                handleChange={onHandleTypeNumberRupiah}
                             />
 
                             <InputError message={errors.total} className="mt-2" />
@@ -142,11 +146,10 @@ export default function FormCustomer(props){
                             <TextInput
                                 id="interest"
                                 name="interest"
-                                type="number"
-                                value={data.interest}
+                                value={formatRupiah(data.interest)}
                                 className="mt-1 block w-full"
                                 autoComplete="interest"
-                                handleChange={onHandleChange}
+                                handleChange={onHandleTypeNumberRupiah}
                             />
 
                             <InputError message={errors.interest} className="mt-2" />

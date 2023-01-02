@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/inertia-react';
 import DangerButton from "@/Components/DangerButton";
+import { formatRupiah } from "@/Utils/utilstext";
 
 export default function FormStore(props){
     const { data, setData, post, put, processing, errors, reset } = useForm({
@@ -19,6 +20,10 @@ export default function FormStore(props){
     const onHandleChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
     };
+
+    const onHandleTypeNumberRupiah = (event) => {
+        setData(event.target.name, event.target.value.replace(/[^0-9]/g,''));
+    }
 
     const submit = (e) => {
         e.preventDefault();
@@ -83,11 +88,10 @@ export default function FormStore(props){
                             <TextInput
                                 id="total"
                                 name="total"
-                                value={data.total}
-                                type="number"
+                                value={formatRupiah(data.total)}
                                 className="mt-1 block w-full"
                                 autoComplete="total"
-                                handleChange={onHandleChange}
+                                handleChange={onHandleTypeNumberRupiah}
                             />
 
                             <InputError message={errors.total} className="mt-2" />

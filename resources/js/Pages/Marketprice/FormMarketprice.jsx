@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/inertia-react';
 import DangerButton from "@/Components/DangerButton";
+import { formatRupiah } from "@/Utils/utilstext";
 
 export default function FormMarketprice(props){
     const { data, setData, post, put, processing, errors, reset } = useForm({
@@ -17,6 +18,10 @@ export default function FormMarketprice(props){
     const onHandleChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
     };
+
+    const onHandleTypeNumberRupiah = (event) => {
+        setData(event.target.name, event.target.value.replace(/[^0-9]/g,''));
+    }
 
     const submit = (e) => {
         e.preventDefault();
@@ -68,11 +73,10 @@ export default function FormMarketprice(props){
                             <TextInput
                                 id="price"
                                 name="price"
-                                type="number"
-                                value={data.price}
+                                value={formatRupiah(data.price)}
                                 className="mt-1 block w-full"
                                 autoComplete="price"
-                                handleChange={onHandleChange}
+                                handleChange={onHandleTypeNumberRupiah}
                             />
 
                             <InputError message={errors.price} className="mt-2" />
