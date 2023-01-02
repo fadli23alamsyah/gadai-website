@@ -13,7 +13,7 @@ use function Termwind\render;
 class MarketPriceController extends Controller
 {
     public function index(){
-        $data = MarketPrice::get();
+        $data = MarketPrice::orderBy('created_at','desc')->get();
         return Inertia::render('Marketprice/IndexMarketprice',[
             "data" => $data,
         ]);

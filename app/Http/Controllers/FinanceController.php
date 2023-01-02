@@ -12,8 +12,12 @@ use Inertia\Inertia;
 class FinanceController extends Controller
 {
     public function index(){
-        if(Auth::user()->role === 'admin') $data = Finance::orderBy('created_at','desc')->with('store')->with('pawn')->with('release')->get();
-        else $data = Finance::where('store_id', Auth::user()->id);
+        $stores = (Auth::user()->role === 'admin') 
+            ? Store::select('id')->get() 
+            : User::find(Auth::user()->id)->stores()->get()->map(fn($store) => $store->id);
+        $data = Finance::orderBy('created_at','desc')
+            ->whereIn('store_id', $stores)
+            ->with('store')->with('pawn')->with('release')->get();
         return Inertia::render('Finance/IndexFinance',[
             "data" => $data,
         ]);
@@ -21,7 +25,7 @@ class FinanceController extends Controller
 
     public function add(){
         if(Auth::user()->role === 'admin') $stores = Store::get();
-        else $stores = User::where('id', Auth::user()->id)->stores;
+        else $stores = User::find(Auth::user()->id)->stores;
         return Inertia::render('Finance/FormFinance',[
             "stores" => $stores,
         ]);
@@ -43,7 +47,7 @@ class FinanceController extends Controller
 
     public function edit(Finance $finance){
         if(Auth::user()->role === 'admin') $stores = Store::get();
-        else $stores = User::where('id', Auth::user()->id)->stores;
+        else $stores = User::find(Auth::user()->id)->stores;
         return Inertia::render('Finance/FormFinance',[
             "finance" => $finance,
             "stores" => $stores,

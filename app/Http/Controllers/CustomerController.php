@@ -15,7 +15,11 @@ use Inertia\Inertia;
 class CustomerController extends Controller
 {
     public function index(){
+        $stores = (Auth::user()->role === 'admin') 
+            ? Store::select('id')->get() 
+            : User::find(Auth::user()->id)->stores()->get()->map(fn($store) => $store->id);
         $data = Pawn::whereNotIn('id', Release::select('pawn_id')->get())
+            ->whereIn('store_id', $stores)
             ->orderBy('created_at','desc')
             ->with('customer')->with('finance')->with('store')->get();
         return Inertia::render('Customer/IndexCustomer',[
@@ -25,7 +29,7 @@ class CustomerController extends Controller
 
     public function add(){
         if(Auth::user()->role === 'admin') $stores = Store::get();
-        else $stores = User::where('id', Auth::user()->id)->first()->stores;
+        else $stores = User::find(Auth::user()->id)->stores;
         return Inertia::render('Customer/FormCustomer',[
             "stores" => $stores,
         ]);
@@ -68,7 +72,7 @@ class CustomerController extends Controller
 
     public function edit(Pawn $pawn){
         if(Auth::user()->role === 'admin') $stores = Store::get();
-        else $stores = User::where('id', Auth::user()->id)->first()->stores;
+        else $stores = User::find(Auth::user()->id)->stores;
         return Inertia::render('Customer/FormCustomer',[
             "stores" => $stores,
             "pawn" => $pawn->customer,

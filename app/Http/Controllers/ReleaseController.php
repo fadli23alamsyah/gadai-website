@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Pawn;
 use App\Models\Release;
+use App\Models\Store;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ReleaseController extends Controller
 {
     public function index(){
+        $stores = (Auth::user()->role === 'admin') 
+            ? Store::select('id')->get() 
+            : User::find(Auth::user()->id)->stores()->get()->map(fn($store) => $store->id);
         $data = Release::orderBy('releases.created_at', 'desc')
+            ->whereIn('releases.store_id', $stores)
             ->with('customer')->with('pawn')->with('finance')->with('store')->get();
         return Inertia::render('Release/IndexRelease',[
             "data" => $data,
