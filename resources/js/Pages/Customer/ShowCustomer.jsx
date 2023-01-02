@@ -24,6 +24,9 @@ export default function ShowCustomer(props){
         setData({
             name: status === 'redeem' ? props.pawn.customer.name : '',
             phone: status === 'redeem' ? props.pawn.customer.phone : '',
+            main: '',
+            interest: '',
+            total: '',
             status: status,
         });
         setIsShow(true);
@@ -34,7 +37,7 @@ export default function ShowCustomer(props){
     }
 
     const onHandleChange = (event) => {
-        setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
+        setData(event.target.name, event.target.value);
     };
 
     const submit = (e) => {

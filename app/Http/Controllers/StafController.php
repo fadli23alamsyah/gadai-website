@@ -12,7 +12,7 @@ use Illuminate\Validation\Rule;
 class StafController extends Controller
 {
     public function index(){
-        $data = User::where('role', 'staf')->get();
+        $data = User::where('role', 'staf')->orderBy('created_at','desc')->get();
         return Inertia::render('Staf/IndexStaf',[
             "data" => $data,
         ]);

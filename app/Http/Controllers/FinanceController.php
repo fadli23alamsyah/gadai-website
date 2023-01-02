@@ -12,7 +12,7 @@ use Inertia\Inertia;
 class FinanceController extends Controller
 {
     public function index(){
-        if(Auth::user()->role === 'admin') $data = Finance::with('store')->with('pawn')->with('release')->get();
+        if(Auth::user()->role === 'admin') $data = Finance::orderBy('created_at','desc')->with('store')->with('pawn')->with('release')->get();
         else $data = Finance::where('store_id', Auth::user()->id);
         return Inertia::render('Finance/IndexFinance',[
             "data" => $data,

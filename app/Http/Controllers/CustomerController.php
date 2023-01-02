@@ -16,6 +16,7 @@ class CustomerController extends Controller
 {
     public function index(){
         $data = Pawn::whereNotIn('id', Release::select('pawn_id')->get())
+            ->orderBy('created_at','desc')
             ->with('customer')->with('finance')->with('store')->get();
         return Inertia::render('Customer/IndexCustomer',[
             "data" => $data,

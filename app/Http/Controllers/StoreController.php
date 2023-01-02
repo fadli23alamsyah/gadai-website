@@ -10,7 +10,7 @@ use Inertia\Inertia;
 class StoreController extends Controller
 {
     public function index(){
-        $data = Store::all();
+        $data = Store::orderBy('created_at','desc')->get();
         return Inertia::render('Store/IndexStore', [
             'data' => $data,
         ]);
