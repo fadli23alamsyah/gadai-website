@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
-import { ucWord } from "@/Utils/utilstext";
+import { formatRupiah, ucWord } from "@/Utils/utilstext";
 
 export default function IndexMarketprice(props){
     const [message, setMessage] = useState(props.flash.message)
@@ -80,7 +80,7 @@ export default function IndexMarketprice(props){
                                         <td>{i+1}</td>
                                         <td>{item.date}</td>
                                         <td>{ucWord(item.type)}</td>
-                                        <td>{item.price}</td>
+                                        <td>{formatRupiah(item.price)}</td>
                                         { props.auth.user.role === 'admin' && (
                                             <td>
                                                 <DangerButton type="button" onClick={() => showModal(item)}>

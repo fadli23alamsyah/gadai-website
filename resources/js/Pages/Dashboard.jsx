@@ -3,6 +3,7 @@ import { Inertia } from '@inertiajs/inertia';
 import { Head } from '@inertiajs/inertia-react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { formatRupiah } from '@/Utils/utilstext';
 
 export default function Dashboard(props) {
     const [data, setData] = useState({
@@ -62,37 +63,37 @@ export default function Dashboard(props) {
                     <div className="w-full md:max-w-[50%] px-4 py-2">
                         <div className='bg-[#57429D] rounded-xl p-4 text-white text-xl shadow-lg shadow-[#57429D]/70'>
                             <h3 className='mb-2'>Total Gadai</h3>
-                            <h4 className='text-center font-bold'>Rp. {data.allPawn}</h4>
+                            <h4 className='text-center font-bold'>Rp. {formatRupiah(data.allPawn)}</h4>
                         </div>
                     </div>
                     <div className="w-full md:max-w-[50%] px-4 py-2">
                         <div className='bg-[#57429D] rounded-xl p-4 text-white text-xl shadow-lg shadow-[#57429D]/70'>
                             <h3 className='mb-2'>Sisa Saldo Gadai</h3>
-                            <h4 className='text-center font-bold'>Rp. {data.storeBalance}</h4>
+                            <h4 className='text-center font-bold'>Rp. {formatRupiah(data.storeBalance)}</h4>
                         </div>
                     </div>
                     <div className="w-full md:max-w-[50%] px-4 py-2">
                         <div className='bg-[#F49D1A] rounded-xl p-4 text-white text-xl shadow-lg shadow-[#F49D1A]/70'>
                             <h3 className='mb-2'>Pendapatan</h3>
-                            <h4 className='text-center font-bold'>Rp. {data.in}</h4>
+                            <h4 className='text-center font-bold'>Rp. {formatRupiah(data.in)}</h4>
                         </div>
                     </div>
                     <div className="w-full md:max-w-[50%] px-4 py-2">
                         <div className='bg-[#F49D1A] rounded-xl p-4 text-white text-xl shadow-lg shadow-[#F49D1A]/70'>
                             <h3 className='mb-2'>Pengeluaran</h3>
-                            <h4 className='text-center font-bold'>Rp. {data.out}</h4>
+                            <h4 className='text-center font-bold'>Rp. {formatRupiah(data.out)}</h4>
                         </div>
                     </div>
                     <div className="w-full md:max-w-[50%] px-4 py-2">
                         <div className='bg-[#10A19D] rounded-xl p-4 text-white text-xl shadow-lg shadow-[#10A19D]/70'>
                             <h3 className='mb-2'>Jumlah Data Pelanggan</h3>
-                            <h4 className='text-center font-bold'>{data.customersPawn}</h4>
+                            <h4 className='text-center font-bold'>{formatRupiah(data.customersPawn)}</h4>
                         </div>
                     </div>
                     <div className="w-full md:max-w-[50%] px-4 py-2">
                         <div className='bg-[#10A19D] rounded-xl p-4 text-white text-xl shadow-lg shadow-[#10A19D]/70'>
                             <h3 className='mb-2'>Jumlah Jatuh Tempo</h3>
-                            <h4 className='text-center font-bold'>{data.deadlinesPawn}</h4>
+                            <h4 className='text-center font-bold'>{formatRupiah(data.deadlinesPawn)}</h4>
                         </div>
                     </div>
                 </div>

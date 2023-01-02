@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
-import { ucWord } from '@/Utils/utilstext'
+import { formatRupiah, ucWord } from '@/Utils/utilstext'
 
 export default function IndexCustomer(props){
     const [message, setMessage] = useState(props.flash.message)
@@ -82,8 +82,8 @@ export default function IndexCustomer(props){
                                         <td>{new Date(item.finance.date).toLocaleDateString("id")}</td>
                                         <td>{ucWord(item.customer.name)}</td>
                                         <td>{ucWord(item.type)}</td>
-                                        <td>{item.finance.total}</td>
-                                        <td>{item.interest}</td>
+                                        <td>{formatRupiah(item.finance.total)}</td>
+                                        <td>{formatRupiah(item.interest)}</td>
                                         <td>{ucWord(item.store.name)}</td>
                                         <td>
                                             <DangerButton type="button" onClick={() => showModal(item)}>

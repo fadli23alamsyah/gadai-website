@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
-import { ucWord } from "@/Utils/utilstext";
+import { formatRupiah, ucWord } from "@/Utils/utilstext";
 
 export default function IndexRelease(props){
     const [message, setMessage] = useState(props.flash.message)
@@ -78,7 +78,7 @@ export default function IndexRelease(props){
                                         <td>{new Date(item.finance.date).toLocaleDateString("id")}</td>
                                         <td>{ucWord(item.customer.name)}</td>
                                         <td>{ucWord(item.pawn.type)}</td>
-                                        <td>{item.finance.total}</td>
+                                        <td>{formatRupiah(item.finance.total)}</td>
                                         <td>{ucWord(item.store.name)}</td>
                                         <td>{item.status === 'redeem'? 'Tebus' : 'Lelang'}</td>
                                         <td>

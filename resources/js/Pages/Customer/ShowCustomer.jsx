@@ -7,6 +7,7 @@ import Modal from "@/Components/Modal";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
+import { formatRupiah, ucWord } from "@/Utils/utilstext";
 
 export default function ShowCustomer(props){
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -67,7 +68,7 @@ export default function ShowCustomer(props){
                             <tr>
                                 <td>Nama Pelanggan</td>
                                 <td className="px-1">:</td>
-                                <td className="w-[70%] font-semibold">{props.pawn.customer.name}</td>
+                                <td className="w-[70%] font-semibold">{ucWord(props.pawn.customer.name)}</td>
                             </tr>
                             <tr>
                                 <td>Nomor Hp</td>
@@ -82,7 +83,7 @@ export default function ShowCustomer(props){
                             <tr>
                                 <td>Toko</td>
                                 <td className="px-1">:</td>
-                                <td className="w-[70%] font-semibold">{props.pawn.store.name}</td>
+                                <td className="w-[70%] font-semibold">{ucWord(props.pawn.store.name)}</td>
                             </tr>
                             <tr>
                                 <td>Tanggal</td>
@@ -92,22 +93,22 @@ export default function ShowCustomer(props){
                             <tr>
                                 <td>Tipe</td>
                                 <td className="px-1">:</td>
-                                <td className="font-semibold">{props.pawn.type}</td>
+                                <td className="font-semibold">{ucWord(props.pawn.type)}</td>
                             </tr>
                             <tr>
                                 <td>Pengambilan</td>
                                 <td className="px-1">:</td>
-                                <td className="font-semibold">{props.pawn.finance.total}</td>
+                                <td className="font-semibold">Rp. {formatRupiah(props.pawn.finance.total)}</td>
                             </tr>
                             <tr>
                                 <td>Bunga</td>
                                 <td className="px-1">:</td>
-                                <td className="font-semibold">{props.pawn.interest}</td>
+                                <td className="font-semibold">Rp. {formatRupiah(props.pawn.interest)}</td>
                             </tr>
                             <tr>
                                 <td>Keterangan</td>
                                 <td className="px-1">:</td>
-                                <td className="font-semibold">{props.pawn.additional}</td>
+                                <td className="font-semibold">{ucWord(props.pawn.additional)}</td>
                             </tr>
                         </tbody>
                     </table>
