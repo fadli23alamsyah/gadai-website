@@ -4,6 +4,7 @@ import Datatables from "@/Components/Datatables";
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import { ucWord } from "@/Utils/utilstext";
 import { faEdit, faKey, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Inertia } from "@inertiajs/inertia";
@@ -87,7 +88,7 @@ export default function IndexStaf(props){
                                 {props.data.map((item, i)=>
                                     <tr key={i}>
                                         <td>{i+1}</td>
-                                        <td>{item.name}</td>
+                                        <td>{ucWord(item.name)}</td>
                                         <td>{item.username}</td>
                                         <td>
                                             <DangerButton type="button" onClick={() => showModal(item, 'delete')}>

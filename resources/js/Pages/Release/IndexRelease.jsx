@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
+import { ucWord } from "@/Utils/utilstext";
 
 export default function IndexRelease(props){
     const [message, setMessage] = useState(props.flash.message)
@@ -75,10 +76,10 @@ export default function IndexRelease(props){
                                     <tr key={i}>
                                         <td>{i+1}</td>
                                         <td>{new Date(item.finance.date).toLocaleDateString("id")}</td>
-                                        <td>{item.customer.name}</td>
-                                        <td>{item.pawn.type}</td>
+                                        <td>{ucWord(item.customer.name)}</td>
+                                        <td>{ucWord(item.pawn.type)}</td>
                                         <td>{item.finance.total}</td>
-                                        <td>{item.store.name}</td>
+                                        <td>{ucWord(item.store.name)}</td>
                                         <td>{item.status === 'redeem'? 'Tebus' : 'Lelang'}</td>
                                         <td>
                                             <DangerButton type="button" onClick={() => showModal(item)}>

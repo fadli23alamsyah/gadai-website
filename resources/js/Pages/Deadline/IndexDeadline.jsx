@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
+import { ucWord } from "@/Utils/utilstext";
 
 export default function IndexDeadline(props){
     const [isShow, setIsShow] = useState(false)
@@ -61,11 +62,11 @@ export default function IndexDeadline(props){
                                     <tr key={i}>
                                         <td>{i+1}</td>
                                         <td>{new Date(item.finance.date).toLocaleDateString("id")}</td>
-                                        <td>{item.customer.name}</td>
-                                        <td>{item.type}</td>
+                                        <td>{ucWord(item.customer.name)}</td>
+                                        <td>{ucWord(item.type)}</td>
                                         <td>{item.finance.total}</td>
                                         <td>{item.interest}</td>
-                                        <td>{item.store.name}</td>
+                                        <td>{ucWord(item.store.name)}</td>
                                         <td>
                                             <DangerButton type="button" onClick={() => showModal(item)}>
                                                 <FontAwesomeIcon icon={faTrash} />

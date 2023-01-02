@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
+import { ucWord } from "@/Utils/utilstext";
 
 export default function IndexStore(props){
     const [message, setMessage] = useState(props.flash.message)
@@ -74,8 +75,8 @@ export default function IndexStore(props){
                                 {props.data.map((item, i)=>
                                     <tr key={i}>
                                         <td>{i+1}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.address}</td>
+                                        <td>{ucWord(item.name)}</td>
+                                        <td>{ucWord(item.address)}</td>
                                         <td>
                                             <DangerButton type="button" onClick={() => showModal(item)}>
                                                 <FontAwesomeIcon icon={faTrash} />

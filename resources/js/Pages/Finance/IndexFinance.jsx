@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
+import { ucWord } from "@/Utils/utilstext";
 
 export default function IndexFinance(props){
     const [message, setMessage] = useState(props.flash.message)
@@ -80,8 +81,8 @@ export default function IndexFinance(props){
                                         <td>{new Date(item.date).toLocaleDateString("id")}</td>
                                         <td>{item.status === 'in' ? 'Pendapatan' : 'Pengeluaran'}</td>
                                         <td className={item.status === 'in' ? 'text-green-600 font-bold' : 'text-red-600'}>{item.total}</td>
-                                        <td>{item.store.name}</td>
-                                        <td>{item.source}</td>
+                                        <td>{ucWord(item.store.name)}</td>
+                                        <td>{ucWord(item.source)}</td>
                                         <td>
                                             {(!item.pawn && !item.release) ? (
                                                 <>
