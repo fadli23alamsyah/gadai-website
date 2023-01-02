@@ -5,6 +5,7 @@ use App\Http\Controllers\DeadlineController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\MarketPriceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReleaseController;
 use App\Http\Controllers\StafController;
 use App\Http\Controllers\StoreController;
 use App\Models\MarketPrice;
@@ -50,6 +51,12 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     // Deadline
     Route::get('/deadline', [DeadlineController::class, 'index'])->name('deadline');
+
+    // Release
+    Route::get('/release', [ReleaseController::class, 'index'])->name('release');
+    Route::put('/release', [ReleaseController::class, 'update'])->name('release.update');
+    Route::delete('/release', [ReleaseController::class, 'destroy'])->name('release.delete');
+    Route::get('/release/edit/{release}', [ReleaseController::class, 'edit'])->name('release.edit');
 
     // Finance
     Route::get('/finance', [FinanceController::class, 'index'])->name('finance');

@@ -34,7 +34,7 @@ export default function Authenticated({ auth, header, children }) {
                         <FontAwesomeIcon icon={faCalendarAlt} className="text-white bg-[#FFBF00] p-2 px-[10px] rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Jatuh Tempo</span>
                     </NavLink>
-                    <NavLink href={route('dashboard')} active={route().current('release')}>
+                    <NavLink href={route('release')} active={route().current().split('.')[0] == 'release'}>
                         <FontAwesomeIcon icon={faHandshakeAngle} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Tebus / Lelang</span>
                     </NavLink>
