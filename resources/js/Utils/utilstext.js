@@ -5,12 +5,13 @@ export const ucWord = (text) => {
 }
 
 export const formatRupiah = (digit) => {
+    let min = digit.toString().match(/^-/g)
     let number = digit.toString().replace(/[^0-9]/g,'')
     let rest = number.length % 3
     let front = number.substring(0, rest)
     let thousand = number.substring(rest).match(/\d{3}/g)
 
-    thousand = thousand ? (rest? '.' : '') + thousand.join(".") : ''
+    front += thousand ? (rest? '.' : '') + thousand.join(".") : ''
 
-    return front + thousand
+    return (min ? min[0] : '') + front 
 }
