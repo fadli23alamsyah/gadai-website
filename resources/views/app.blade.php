@@ -3,6 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Palpal Universe">
+        <meta name="author" content="nurfadli231298@gmail.com">
+        <meta name="description" content="Website management gadai">
+        <meta name="keywords" content="Website management gadai">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
