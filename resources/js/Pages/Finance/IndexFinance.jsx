@@ -80,7 +80,7 @@ export default function IndexFinance(props){
                                         <td>{i+1}</td>
                                         <td>{new Date(item.date).toLocaleDateString("id")}</td>
                                         <td>{item.status === 'in' ? 'Pendapatan' : 'Pengeluaran'}</td>
-                                        <td className={item.status === 'in' ? 'text-green-600 font-bold' : 'text-red-600'}>{formatRupiah(item.total)}</td>
+                                        <td className={`${item.status === 'in' ? 'text-green-600 font-bold' : 'text-red-600'} text-right`}>{formatRupiah(item.total)}</td>
                                         <td>{ucWord(item.store.name)}</td>
                                         <td>{ucWord(item.source)}</td>
                                         <td>

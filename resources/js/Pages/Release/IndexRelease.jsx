@@ -78,7 +78,7 @@ export default function IndexRelease(props){
                                         <td>{new Date(item.finance.date).toLocaleDateString("id")}</td>
                                         <td>{ucWord(item.customer.name)}</td>
                                         <td>{ucWord(item.pawn.type)}</td>
-                                        <td>{formatRupiah(item.finance.total)}</td>
+                                        <td className="text-right">{formatRupiah(item.finance.total)}</td>
                                         <td>{ucWord(item.store.name)}</td>
                                         <td>{item.status === 'redeem'? 'Tebus' : 'Lelang'}</td>
                                         <td>

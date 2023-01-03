@@ -64,8 +64,8 @@ export default function IndexDeadline(props){
                                         <td>{new Date(item.finance.date).toLocaleDateString("id")}</td>
                                         <td>{ucWord(item.customer.name)}</td>
                                         <td>{ucWord(item.type)}</td>
-                                        <td>{formatRupiah(item.finance.total)}</td>
-                                        <td>{formatRupiah(item.interest)}</td>
+                                        <td className="text-right">{formatRupiah(item.finance.total)}</td>
+                                        <td className="text-right">{formatRupiah(item.interest)}</td>
                                         <td>{ucWord(item.store.name)}</td>
                                         <td>
                                             <DangerButton type="button" onClick={() => showModal(item)}>

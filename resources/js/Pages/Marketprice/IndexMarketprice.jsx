@@ -80,7 +80,7 @@ export default function IndexMarketprice(props){
                                         <td>{i+1}</td>
                                         <td>{item.date}</td>
                                         <td>{ucWord(item.type)}</td>
-                                        <td>{formatRupiah(item.price)}</td>
+                                        <td className="text-right">{formatRupiah(item.price)}</td>
                                         { props.auth.user.role === 'admin' && (
                                             <td>
                                                 <DangerButton type="button" onClick={() => showModal(item)}>
