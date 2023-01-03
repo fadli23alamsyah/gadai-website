@@ -23,17 +23,6 @@ export default function Datatables({children}){
             </Head>
             <table id="datatables" className="display w-full">
                 {children}
-                {/* Example children below */}
-                {/* <thead className='bg-[#57429D] text-white'>
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                    </tr>
-                </tbody> */}
             </table>
         </div>
     )

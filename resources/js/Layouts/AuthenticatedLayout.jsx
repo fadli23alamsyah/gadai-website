@@ -4,7 +4,6 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faUsers, faCalendarAlt, faChartBar, faHandshakeAngle, faDollyBox, faIdCard, faStore } from '@fortawesome/free-solid-svg-icons'
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/inertia-react';
 
 export default function Authenticated({ auth, header, children }) {

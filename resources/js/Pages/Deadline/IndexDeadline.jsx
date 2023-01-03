@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import ClickEffect from "@/Components/ClickEffect";
+import { useState } from "react";
 import Datatables from "@/Components/Datatables";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
 import { Head } from '@inertiajs/inertia-react';

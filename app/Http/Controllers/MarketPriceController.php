@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\MarketPrice;
-use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 use Inertia\Inertia;
-
-use function Termwind\render;
 
 class MarketPriceController extends Controller
 {

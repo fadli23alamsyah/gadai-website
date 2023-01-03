@@ -1,5 +1,4 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Inertia } from '@inertiajs/inertia';
 import { Head } from '@inertiajs/inertia-react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -54,12 +53,6 @@ export default function Dashboard(props) {
                     {props.stores.map((store, i)=> <option key={i} value={store.id}>{store.name}</option>)}
                 </select>
                 <div className='flex flex-wrap'>
-                    {/* <div className="w-full md:max-w-[50%] md:grow-0 md:shrink-0 md:basis-1/2 px-4 py-2">
-                        <div className='bg-[#57429D] rounded-xl p-4 text-white text-xl shadow-lg shadow-[#57429D]/70'>
-                            <h3 className='mb-2'>Total Gadai</h3>
-                            <h4 className='text-center font-bold'>Rp. 1.000.000</h4>
-                        </div>
-                    </div> */}
                     <div className="w-full md:max-w-[50%] px-4 py-2">
                         <div className='bg-[#57429D] rounded-xl p-4 text-white text-xl shadow-lg shadow-[#57429D]/70'>
                             <h3 className='mb-2'>Total Gadai</h3>
