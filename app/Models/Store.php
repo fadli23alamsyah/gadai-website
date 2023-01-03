@@ -14,4 +14,16 @@ class Store extends Model
     public function users(){
         return $this->belongsToMany(User::class, 'user_store');
     }
+
+    public function finances(){
+        return $this->hasMany(Finance::class);
+    }
+
+    public function pawns(){
+        return $this->hasMany(Pawn::class);
+    }
+
+    public function releases(){
+        return $this->hasMany(Release::class);
+    }
 }

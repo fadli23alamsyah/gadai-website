@@ -41,9 +41,11 @@ class StoreController extends Controller
     }
 
     public function destroy(Request $request){
-        if(Store::where('id', $request->id)->delete()){
+        $store = Store::withExists(['releases', 'pawns', 'finances'])->find($request->id);
+        if(!$store->releases_exists && !$store->pawns_exists && !$store->finances_exists){
+            $store->delete();
             return to_route('store')->with("isSuccess", true)->with("message","Berhasil dihapus");
         }
-        return to_route('store')->with("isSuccess", false)->with("message","Gagal dihapus");
+        return to_route('store')->with("isSuccess", false)->with("message","Gagal dihapus, masih terdapat relasi untuk ".$request->name);
     }
 }
