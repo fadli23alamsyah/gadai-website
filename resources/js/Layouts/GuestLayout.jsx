@@ -13,6 +13,7 @@ export default function Guest({ children }) {
             <div className="w-full max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden rounded-lg">
                 {children}
             </div>
+            <div className='mt-2 text-center text-white'>Created with ❤ by Palpal | Copyright {new Date().getFullYear()} &copy; Palpal Universe</div>
         </div>
     );
 }
