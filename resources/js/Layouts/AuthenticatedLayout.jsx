@@ -127,7 +127,7 @@ export default function Authenticated({ auth, header, children }) {
                 <div className='h-full bg-white py-4 px-6 rounded-3xl lg:pt-0 lg:rounded-t-none'>
                     {children}
                 </div>
-                <div className='mt-3 text-center text-white'>Created with ❤ by Palpal | Copyright {new Date().getFullYear()} &copy; Palpal Universe</div>
+                <div className='mt-2 text-center text-white'>Created with ❤ by Palpal<br />&copy; 2023 - {new Date().getFullYear()}</div>
             </main>
         </div>
     );

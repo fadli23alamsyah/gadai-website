@@ -1,4 +1,5 @@
 export const ucWord = (text) => {
+    if(text == null || text.length <= 0) return ''
     let words = text.split(" ");
     let newWord = words.map(word => word[0].toUpperCase() + word.substring(1));
     return newWord.join(" ")
