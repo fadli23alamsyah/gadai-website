@@ -42,11 +42,11 @@ class HandleInertiaRequests extends Middleware
                 'isSuccess' => fn () => $request->session()->get('isSuccess'),
                 'message' => fn () => $request->session()->get('message')
             ],
-            'ziggy' => function () use ($request) {
-                return array_merge((new Ziggy)->toArray(), [
-                    'location' => $request->url(),
-                ]);
-            },
+            // 'ziggy' => function () use ($request) {
+            //     return array_merge((new Ziggy)->toArray(), [
+            //         'location' => $request->url(),
+            //     ]);
+            // },
         ]);
     }
 }
