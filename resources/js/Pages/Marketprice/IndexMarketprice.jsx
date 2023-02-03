@@ -56,11 +56,11 @@ export default function IndexMarketprice(props){
 
             <div className='py-1 -mx-4'>
                 <div className='flex flex-col px-5 lg:pt-5'>
-                    {props.auth.user.role === 'admin' && (
+                    {/* {props.auth.user.role === 'admin' && ( */}
                         <ClickEffect href={route('marketprice.add')} className="inline-block ml-auto bg-[#F49D1A]/60 border-[#F49D1A] shadow-[0_0.25em_0_#F49D1A] hover:bg-[#F49D1A]/70">
                             <p className='text-md mx-4 my-1 font-bold text-black'>Tambah Data</p>
                         </ClickEffect>
-                    )}
+                    {/* )} */}
                     
                     {message && <div className={`w-full text-white rounded-md ${props.flash.isSuccess ? 'bg-green-500' : 'bg-red-500'} px-4 py-2 mt-6`}>{message}</div>}
                     <div className='mt-8 p-3 shadow-inner rounded-lg bg-[#fafafc]'>
@@ -71,7 +71,8 @@ export default function IndexMarketprice(props){
                                     <th>Tanggal Update</th>
                                     <th>Tipe</th>
                                     <th>Harga</th>
-                                    {props.auth.user.role === 'admin' && <th>Aksi</th>}
+                                    {/* {props.auth.user.role === 'admin' && <th>Aksi</th>} */}
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,7 +82,7 @@ export default function IndexMarketprice(props){
                                         <td>{item.date}</td>
                                         <td>{ucWord(item.type)}</td>
                                         <td className="text-right">{formatRupiah(item.price)}</td>
-                                        { props.auth.user.role === 'admin' && (
+                                        {/* { props.auth.user.role === 'admin' && ( */}
                                             <td>
                                                 <DangerButton type="button" onClick={() => showModal(item)}>
                                                     <FontAwesomeIcon icon={faTrash} />
@@ -90,7 +91,7 @@ export default function IndexMarketprice(props){
                                                     <FontAwesomeIcon icon={faEdit} />
                                                 </PrimaryButton>
                                             </td>
-                                        )}
+                                        {/* )} */}
                                     </tr>
                                 )}
                             </tbody>
