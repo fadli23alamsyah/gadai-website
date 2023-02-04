@@ -83,11 +83,11 @@ export default function IndexMarketprice(props){
                                         <td>{ucWord(item.type)}</td>
                                         <td className="text-right">{formatRupiah(item.price)}</td>
                                         {/* { props.auth.user.role === 'admin' && ( */}
-                                            <td>
+                                            <td className="flex flex-wrap gap-1 justify-center">
                                                 <DangerButton type="button" onClick={() => showModal(item)}>
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </DangerButton>
-                                                <PrimaryButton type="button" onClick={() =>  window.location = route('marketprice.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
+                                                <PrimaryButton type="button" onClick={() =>  window.location = route('marketprice.edit',[item])} >
                                                     <FontAwesomeIcon icon={faEdit} />
                                                 </PrimaryButton>
                                             </td>

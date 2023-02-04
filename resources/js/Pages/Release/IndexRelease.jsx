@@ -80,11 +80,11 @@ export default function IndexRelease(props){
                                         <td className="text-right">{formatRupiah(item.finance.total)}</td>
                                         <td>{ucWord(item.store.name)}</td>
                                         <td>{item.status === 'redeem'? 'Tebus' : 'Lelang'}</td>
-                                        <td>
+                                        <td className="flex flex-wrap gap-1 justify-center">
                                             <DangerButton type="button" onClick={() => showModal(item)}>
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </DangerButton>
-                                            <PrimaryButton type="button" onClick={() =>  window.location = route('release.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
+                                            <PrimaryButton type="button" onClick={() =>  window.location = route('release.edit',[item])} >
                                                 <FontAwesomeIcon icon={faEdit} />
                                             </PrimaryButton>
                                         </td>

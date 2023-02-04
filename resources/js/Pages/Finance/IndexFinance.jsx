@@ -83,13 +83,13 @@ export default function IndexFinance(props){
                                         <td className={`${item.status === 'in' ? 'text-green-600 font-bold' : 'text-red-600'} text-right`}>{formatRupiah(item.total)}</td>
                                         <td>{ucWord(item.store.name)}</td>
                                         <td>{ucWord(item.source)}</td>
-                                        <td>
+                                        <td className="flex flex-wrap gap-1 justify-center">
                                             {(!item.pawn && !item.release) ? (
                                                 <>
                                                     <DangerButton type="button" onClick={() => showModal(item)}>
                                                         <FontAwesomeIcon icon={faTrash} />
                                                     </DangerButton>
-                                                    <PrimaryButton type="button" onClick={() =>  window.location = route('finance.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
+                                                    <PrimaryButton type="button" onClick={() =>  window.location = route('finance.edit',[item])}>
                                                         <FontAwesomeIcon icon={faEdit} />
                                                     </PrimaryButton>
                                                 </>
