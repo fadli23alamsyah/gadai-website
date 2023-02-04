@@ -24,8 +24,8 @@ export default function ShowCustomer(props){
 
     const showModal = (status) => {
         setData({
-            name: status === 'redeem' ? props.pawn.customer.name : '',
-            phone: status === 'redeem' ? props.pawn.customer.phone : '',
+            name: status === 'redeem' || status === 'extended' ? props.pawn.customer.name : '',
+            phone: status === 'redeem' || status === 'extended' ? props.pawn.customer.phone : '',
             main: props.pawn.finance.total,
             interest: props.pawn.finance.total * props.pawn.interest/100,
             total: parseInt(props.pawn.finance.total) + (props.pawn.finance.total * props.pawn.interest/100),
@@ -51,7 +51,7 @@ export default function ShowCustomer(props){
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('customer.release', props.pawn))
+        data.status === 'extended' ? post(route('customer.extended', props.pawn)) : post(route('customer.release', props.pawn))
     };
 
 
@@ -123,9 +123,8 @@ export default function ShowCustomer(props){
                     <div className="flex flex-row mt-6">
                         <DangerButton type="button" onClick={()=> window.history.back()}>Kembali</DangerButton>
                         <PrimaryButton className="ml-3" onClick={() => showModal('redeem')}>Tebus</PrimaryButton>
-                        <button type="button" onClick={() => showModal('auction')} className="bg-purple-600 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-600/70 focus:bg-purple-600 active:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 ml-3">
-                            Lelang
-                        </button>
+                        <PrimaryButton className="ml-3 bg-[#9333EA] hover:bg-purple-600/70 focus:bg-purple-600 active:bg-purple-600 focus:ring-purple-600" onClick={() => showModal('auction')}>Lelang</PrimaryButton>
+                        <PrimaryButton className="ml-3 bg-green-600 hover:bg-green-600/70 focus:bg-green-600 active:bg-green-600 focus:ring-green-600" onClick={() => showModal('extended')}>Perpanjang</PrimaryButton>
                     </div>
                 </div>
             </div>
@@ -158,7 +157,7 @@ export default function ShowCustomer(props){
                                 id="name"
                                 name="name"
                                 value={data.name}
-                                disabled={data.status === 'redeem'}
+                                disabled={data.status === 'redeem' || data.status === 'extended'}
                                 className="mt-1 block w-full"
                                 autoComplete="name"
                                 handleChange={onHandleChange}
@@ -174,7 +173,7 @@ export default function ShowCustomer(props){
                                 id="phone"
                                 name="phone"
                                 value={data.phone}
-                                disabled={data.status === 'redeem'}
+                                disabled={data.status === 'redeem' || data.status === 'extended'}
                                 type="number"
                                 className="mt-1 block w-full"
                                 autoComplete="phone"

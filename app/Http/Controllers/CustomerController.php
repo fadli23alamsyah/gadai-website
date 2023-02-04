@@ -177,4 +177,29 @@ class CustomerController extends Controller
         }
         return to_route('customer')->with("isSuccess", false)->with("message",$request->status === 'auction'? 'Gagal dilelang' : 'Gagal ditebus');
     }
+
+    public function extended(Request $request, Pawn $pawn){
+        $request->validate([
+            'main' => 'required|numeric',
+            'interest' => 'required|numeric',
+            'date' => 'required|date',
+        ]);
+
+        $tes = $pawn->finance()->update([
+            'date' => $request->date,
+        ]);
+
+        $save = Finance::create([
+            'date' => date('Y-m-d'),
+            'total' => $request->interest,
+            'status' => 'in',
+            'source' => 'Perpanjang gadai ' .$pawn->type .' oleh '.$request->name,
+            'store_id' => $pawn->store_id,
+        ]);
+
+        if($save){
+            return to_route('customer')->with(["isSuccess" => true, "message" => 'Berhasil diperpanjang']);
+        }
+        return to_route('customer')->with(["isSuccess" => false, "message" => 'Gagal diperpanjang']);
+    }
 }

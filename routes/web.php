@@ -50,6 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/customer/edit/{pawn}', [CustomerController::class, 'edit'])->name('customer.edit');
     Route::get('/customer/show/{pawn}', [CustomerController::class, 'show'])->name('customer.show');
     Route::post('/customer/release/{pawn}', [CustomerController::class, 'release'])->name('customer.release');
+    Route::post('/customer/extended/{pawn}', [CustomerController::class, 'extended'])->name('customer.extended');
 
     // Deadline
     Route::get('/deadline', [DeadlineController::class, 'index'])->name('deadline');
