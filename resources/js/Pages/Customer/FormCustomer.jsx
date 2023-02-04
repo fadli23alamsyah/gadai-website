@@ -15,9 +15,10 @@ export default function FormCustomer(props){
         phone: '',
         type: '',
         total: '',
-        interest: '',
+        interest: '1', // default value 1%
         additional: '',
         store_id: '',
+        date: '',
     });
 
     const onHandleChange = (event) => {
@@ -45,6 +46,7 @@ export default function FormCustomer(props){
                 interest: props.pawn.interest,
                 additional: props.pawn.additional,
                 store_id: props.pawn.store_id,
+                date: props.pawn.finance.date,
             })
         }
     }, [])
@@ -97,6 +99,22 @@ export default function FormCustomer(props){
 
                         <h3 className="font-bold text-lg mt-6">Data Gadai</h3>
 
+                        <div className="inline-block w-full mb-2">
+                            <InputLabel forInput="date" value="Tanggal" />
+
+                            <TextInput
+                                id="date"
+                                name="date"
+                                type="date"
+                                value={data.date}
+                                className="mt-1 block w-full"
+                                autoComplete="date"
+                                handleChange={onHandleChange}
+                            />
+
+                            <InputError message={errors.date} className="mt-2" />
+                        </div>
+
                         <div className="inline-block w-full md:w-1/2 md:pr-2">
                             <InputLabel forInput="type" value="Tipe" />
 
@@ -141,7 +159,7 @@ export default function FormCustomer(props){
                         </div>
 
                         <div className="inline-block w-full mt-4 md:w-1/2 md:pl-2">
-                            <InputLabel forInput="interest" value="Bunga" />
+                            <InputLabel forInput="interest" value="Bunga (%)" />
 
                             <TextInput
                                 id="interest"
@@ -158,7 +176,7 @@ export default function FormCustomer(props){
                         <div className="mt-4">
                             <InputLabel forInput="additional" value="Keterangan" />
 
-                            <textarea id="additional" name="additional" autoComplete="additional" onChange={onHandleChange} rows="3 " value={data.additional} className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"></textarea>
+                            <textarea id="additional" name="additional" autoComplete="additional" onChange={onHandleChange} rows="3" value={data.additional ?? ''} className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"></textarea>
 
                             <InputError message={errors.additional} className="mt-2" />
                         </div>

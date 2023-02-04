@@ -43,6 +43,7 @@ class CustomerController extends Controller
             'total' => 'required|numeric',
             'interest' => 'required|numeric',
             'store_id' => 'required',
+            'date' => 'required|date',
         ]);
 
         $customer = Customer::create([
@@ -51,7 +52,7 @@ class CustomerController extends Controller
         ]);
 
         $save = Finance::create([
-            'date' => date('Y-m-d'),
+            'date' => $request->date,
             'total' => $request->total,
             'status' => 'out',
             'source' => 'Gadai '.$request->type.' oleh '.$request->name,
@@ -89,6 +90,7 @@ class CustomerController extends Controller
             'total' => 'required|numeric',
             'interest' => 'required|numeric',
             'store_id' => 'required',
+            'date' => 'required|date',
         ]);
 
         $pawn = Pawn::find($request->id);
@@ -103,6 +105,7 @@ class CustomerController extends Controller
             'phone' => $request->phone,
         ]);
         $pawn->finance()->update([
+            'date' => $request->date,
             'total' => $request->total,
             'source' => 'Gadai '.$request->type.' oleh '.$request->name,
             'store_id' => $request->store_id,
@@ -144,6 +147,7 @@ class CustomerController extends Controller
             'main' => 'required|numeric',
             'interest' => 'required|numeric',
             'total' => 'required|numeric',
+            'date' => 'required|date',
         ]);
 
         if($request->status === 'auction'){
@@ -154,7 +158,7 @@ class CustomerController extends Controller
         }
 
         $save = Finance::create([
-            'date' => date('Y-m-d'),
+            'date' => $request->date,
             'total' => $request->total,
             'status' => 'in',
             'source' => ($request->status === 'auction' ? 'Lelang ' : 'Tebus ') .$pawn->type .' oleh '.$request->name,

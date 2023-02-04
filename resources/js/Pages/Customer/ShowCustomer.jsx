@@ -10,13 +10,14 @@ import InputError from "@/Components/InputError";
 import { formatRupiah, ucWord } from "@/Utils/utilstext";
 
 export default function ShowCustomer(props){
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
         name: '',
         phone: '',
         main: '',
         interest: '',
         total: '',
         status: '',
+        date: '',
     });
 
     const [isShow, setIsShow] = useState(false);
@@ -25,16 +26,18 @@ export default function ShowCustomer(props){
         setData({
             name: status === 'redeem' ? props.pawn.customer.name : '',
             phone: status === 'redeem' ? props.pawn.customer.phone : '',
-            main: '',
-            interest: '',
-            total: '',
+            main: props.pawn.finance.total,
+            interest: props.pawn.finance.total * props.pawn.interest/100,
+            total: parseInt(props.pawn.finance.total) + (props.pawn.finance.total * props.pawn.interest/100),
             status: status,
+            date: '',
         });
         setIsShow(true);
     }
 
     const closeModal = () => {
         setIsShow(false);
+        clearErrors()
     }
 
     const onHandleChange = (event) => {
@@ -92,7 +95,7 @@ export default function ShowCustomer(props){
                             <tr>
                                 <td>Tanggal</td>
                                 <td className="px-1">:</td>
-                                <td className="font-semibold">{props.pawn.finance.date}</td>
+                                <td className="font-semibold">{new Date(props.pawn.finance.date).toLocaleDateString("id")}</td>
                             </tr>
                             <tr>
                                 <td>Tipe</td>
@@ -107,7 +110,7 @@ export default function ShowCustomer(props){
                             <tr>
                                 <td>Bunga</td>
                                 <td className="px-1">:</td>
-                                <td className="font-semibold">Rp. {formatRupiah(props.pawn.interest)}</td>
+                                <td className="font-semibold">Rp. {formatRupiah(props.pawn.finance.total * props.pawn.interest/100)} ({formatRupiah(props.pawn.interest)}%)</td>
                             </tr>
                             <tr>
                                 <td>Keterangan</td>
@@ -127,12 +130,28 @@ export default function ShowCustomer(props){
                 </div>
             </div>
 
-            {/* Modal Delete */}
+            {/* Modal Form Release */}
             <Modal closeable={false} show={isShow} maxWidth="md" onClose={closeModal}>
                 <div className="p-4">
                     <h3 className="text-center text-xl font-bold">{data.status === 'redeem'? 'Tebus' : 'Lelang'} Data</h3>
                     <form onSubmit={submit} method="post">
-                        <div>
+                        <div className="inline-block w-full mb-2">
+                            <InputLabel forInput="date" value="Tanggal" />
+
+                            <TextInput
+                                id="date"
+                                name="date"
+                                type="date"
+                                value={data.date}
+                                className="mt-1 block w-full"
+                                autoComplete="date"
+                                handleChange={onHandleChange}
+                            />
+
+                            <InputError message={errors.date} className="mt-2" />
+                        </div>
+
+                        <div className="mt-4">
                             <InputLabel forInput="name" value="Nama Pelanggan" />
 
                             <TextInput
