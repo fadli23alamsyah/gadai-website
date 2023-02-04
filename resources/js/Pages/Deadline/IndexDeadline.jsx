@@ -64,16 +64,16 @@ export default function IndexDeadline(props){
                                         <td>{ucWord(item.customer.name)}</td>
                                         <td>{ucWord(item.type)}</td>
                                         <td className="text-right">{formatRupiah(item.finance.total)}</td>
-                                        <td className="text-right">{formatRupiah(item.interest)}</td>
+                                        <td className="text-right whitespace-nowrap">{formatRupiah(item.finance.total * item.interest/100)} ({formatRupiah(item.interest)}%)</td>
                                         <td>{ucWord(item.store.name)}</td>
-                                        <td>
+                                        <td className="flex flex-wrap gap-1 justify-center">
                                             <DangerButton type="button" onClick={() => showModal(item)}>
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </DangerButton>
-                                            <PrimaryButton type="button" onClick={() =>  window.location = route('customer.edit',[item])} className="sm:ml-2 sm:mt-0 mt-2">
+                                            <PrimaryButton type="button" onClick={() =>  window.location = route('customer.edit',[item])} >
                                                 <FontAwesomeIcon icon={faEdit} />
                                             </PrimaryButton>
-                                            <button type="button" onClick={() =>  window.location = route('customer.show',[item])} className="bg-purple-600 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-600/70 focus:bg-purple-600 active:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 sm:ml-2 sm:mt-0 mt-2">
+                                            <button type="button" onClick={() =>  window.location = route('customer.show',[item])} className="bg-purple-600 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-600/70 focus:bg-purple-600 active:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
                                                 <FontAwesomeIcon icon={faEye} />
                                             </button>
                                         </td>
