@@ -15,12 +15,11 @@ class DeadlineController extends Controller
         $stores = (Auth::user()->role === 'admin') 
             ? Store::select('id')->get() 
             : User::find(Auth::user()->id)->stores()->get()->map(fn($store) => $store->id);
-        $data = Pawn::whereNotIn('pawns.id', Release::select('pawn_id')->get())
+        $data = Pawn::with(['customer','store','finance'])->whereNotIn('pawns.id', Release::select('pawn_id')->get())
             ->orderBy('pawns.created_at','desc')
             ->join('finances', 'finances.id', '=', 'pawns.finance_id')
             ->whereRaw('DATE_ADD(finances.date, INTERVAL 30 DAY) < ?',[date('Y-m-d')])
-            ->whereIn('pawns.store_id', $stores)
-            ->with('customer')->with('store')->with('finance')->get();
+            ->whereIn('pawns.store_id', $stores)->get(['pawns.*']);
         return Inertia::render('Deadline/IndexDeadline',[
             "data" => $data,
         ]);
