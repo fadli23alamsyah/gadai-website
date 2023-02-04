@@ -190,7 +190,7 @@ class CustomerController extends Controller
         ]);
 
         $save = Finance::create([
-            'date' => date('Y-m-d'),
+            'date' => $request->date,
             'total' => $request->interest,
             'status' => 'in',
             'source' => 'Perpanjang gadai ' .$pawn->type .' oleh '.$request->name,

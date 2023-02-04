@@ -9,6 +9,7 @@ import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/Components/Modal";
 import { Inertia } from '@inertiajs/inertia'
 import { formatRupiah, ucWord } from "@/Utils/utilstext";
+import { countTotalDate, dateNowFormat } from "@/Utils/utilsdate";
 
 export default function IndexDeadline(props){
     const [isShow, setIsShow] = useState(false)
@@ -64,7 +65,7 @@ export default function IndexDeadline(props){
                                         <td>{ucWord(item.customer.name)}</td>
                                         <td>{ucWord(item.type)}</td>
                                         <td className="text-right">{formatRupiah(item.finance.total)}</td>
-                                        <td className="text-right whitespace-nowrap">{formatRupiah(item.finance.total * item.interest/100)} ({formatRupiah(item.interest)}%)</td>
+                                        <td className="text-right whitespace-nowrap">{formatRupiah(item.interest * countTotalDate(dateNowFormat(), item.finance.date))}</td>
                                         <td>{ucWord(item.store.name)}</td>
                                         <td className="flex flex-wrap gap-1 justify-center">
                                             <DangerButton type="button" onClick={() => showModal(item)}>

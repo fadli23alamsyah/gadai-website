@@ -15,7 +15,7 @@ export default function FormCustomer(props){
         phone: '',
         type: '',
         total: '',
-        interest: '1', // default value 1%
+        interest: '',
         additional: '',
         store_id: '',
         date: '',
@@ -159,7 +159,7 @@ export default function FormCustomer(props){
                         </div>
 
                         <div className="inline-block w-full mt-4 md:w-1/2 md:pl-2">
-                            <InputLabel forInput="interest" value="Bunga (%)" />
+                            <InputLabel forInput="interest" value="Bunga" />
 
                             <TextInput
                                 id="interest"

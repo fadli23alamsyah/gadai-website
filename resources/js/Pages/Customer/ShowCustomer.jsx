@@ -2,12 +2,13 @@ import Authenticated from "@/Layouts/AuthenticatedLayout"
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, useForm } from '@inertiajs/inertia-react';
 import DangerButton from "@/Components/DangerButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/Components/Modal";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import { formatRupiah, ucWord } from "@/Utils/utilstext";
+import { countTotalDate, dateNowFormat } from "@/Utils/utilsdate";
 
 export default function ShowCustomer(props){
     const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
@@ -21,16 +22,22 @@ export default function ShowCustomer(props){
     });
 
     const [isShow, setIsShow] = useState(false);
+    const [totalDate, setTotalDate] = useState(0);
+
+    useEffect(()=>{
+        setTotalDate(countTotalDate(dateNowFormat(), props.pawn.finance.date))
+        setData('date', dateNowFormat())
+    },[])
 
     const showModal = (status) => {
         setData({
+            ...data,
             name: status === 'redeem' || status === 'extended' ? props.pawn.customer.name : '',
             phone: status === 'redeem' || status === 'extended' ? props.pawn.customer.phone : '',
             main: props.pawn.finance.total,
-            interest: props.pawn.finance.total * props.pawn.interest/100,
-            total: parseInt(props.pawn.finance.total) + (props.pawn.finance.total * props.pawn.interest/100),
+            interest: props.pawn.interest * totalDate,
+            total: parseInt(props.pawn.finance.total) + (props.pawn.interest * totalDate),
             status: status,
-            date: '',
         });
         setIsShow(true);
     }
@@ -41,7 +48,17 @@ export default function ShowCustomer(props){
     }
 
     const onHandleChange = (event) => {
-        setData(event.target.name, event.target.value);
+        if(event.target.name === 'date'){
+            let count = countTotalDate(event.target.value, props.pawn.finance.date)
+            setData({
+                ...data,
+                date: event.target.value,
+                interest: props.pawn.interest * count,
+                total: parseInt(data.main) + (props.pawn.interest * count)
+            })
+        }else{
+            setData(event.target.name, event.target.value);
+        }
     };
 
     const onHandleTypeNumberRupiah = (event) => {
@@ -110,7 +127,7 @@ export default function ShowCustomer(props){
                             <tr>
                                 <td>Bunga</td>
                                 <td className="px-1">:</td>
-                                <td className="font-semibold">Rp. {formatRupiah(props.pawn.finance.total * props.pawn.interest/100)} ({formatRupiah(props.pawn.interest)}%)</td>
+                                <td className="font-semibold">{formatRupiah(props.pawn.interest)}/hari x {totalDate} = Rp. {formatRupiah(props.pawn.interest * totalDate)}</td>
                             </tr>
                             <tr>
                                 <td>Keterangan</td>
@@ -132,19 +149,19 @@ export default function ShowCustomer(props){
             {/* Modal Form Release */}
             <Modal closeable={false} show={isShow} maxWidth="md" onClose={closeModal}>
                 <div className="p-4">
-                    <h3 className="text-center text-xl font-bold">{data.status === 'redeem'? 'Tebus' : 'Lelang'} Data</h3>
+                    <h3 className="text-center text-xl font-bold">{data.status === 'redeem'? 'Tebus' : data.status === 'extended'? 'Perpanjang' :'Lelang'} Data</h3>
                     <form onSubmit={submit} method="post">
                         <div className="inline-block w-full mb-2">
                             <InputLabel forInput="date" value="Tanggal" />
 
-                            <TextInput
+                            <input 
                                 id="date"
+                                type="date" 
                                 name="date"
-                                type="date"
                                 value={data.date}
-                                className="mt-1 block w-full"
-                                autoComplete="date"
-                                handleChange={onHandleChange}
+                                min={props.pawn.finance.date}
+                                className="mt-1 block w-full border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" 
+                                onChange={onHandleChange}
                             />
 
                             <InputError message={errors.date} className="mt-2" />
