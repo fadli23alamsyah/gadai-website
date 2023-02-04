@@ -18,29 +18,17 @@ class DashboardController extends Controller
             ? Store::get()
             : User::find(Auth::user()->id)->stores()->get();
 
-        $stores_id = $stores->map(fn($store) => $store->id);
+        $stores_id = $stores->pluck('id');
 
-        $pawn = Pawn::whereIn('store_id', $stores_id)->with('finance')->get()->map(fn($pawn) => $pawn->finance->total)->sum();
-
-        $in = Finance::where('status','in')->whereIn('store_id', $stores_id)->sum('total');
-
-        $out = Finance::where('status','out')->whereIn('store_id', $stores_id)->sum('total');
-
-        $customer = Pawn::whereNotIn('id', Release::select('pawn_id')->get())
-            ->whereIn('store_id', $stores_id)->count();
-
-        $deadline = Pawn::whereNotIn('pawns.id', Release::select('pawn_id')->get())
-            ->join('finances', 'finances.id', '=', 'pawns.finance_id')
-            ->whereRaw('DATE_ADD(finances.date, INTERVAL 30 DAY) < ?',[date('Y-m-d')])
-            ->whereIn('pawns.store_id', $stores_id)->count();
+        $getData = self::_getDataDashboard($stores_id);
 
         return Inertia::render('Dashboard',[
             "stores" => $stores,
-            "allPawn" => $pawn,
-            "in" => $in,
-            "out" => $out,
-            "customersPawn" => $customer,
-            "deadlinesPawn" => $deadline,
+            "allPawn" => $getData['pawn'],
+            "in" => $getData['in'],
+            "out" => $getData['out'],
+            "customersPawn" => $getData['customer'],
+            "deadlinesPawn" => $getData['deadline'],
         ]);
     }
 
@@ -49,29 +37,42 @@ class DashboardController extends Controller
             ? Store::get()
             : User::find(Auth::user()->id)->stores()->get();
 
-        $stores_id = ($request->id === 'all') ? $stores->map(fn($store) => $store->id) : [$request->id];
+        $stores_id = ($request->id === 'all') ? $stores->pluck('id') : [$request->id];
+        
+        $getData = self::_getDataDashboard($stores_id);
 
-        $pawn = Pawn::whereIn('store_id', $stores_id)->with('finance')->get()->map(fn($pawn) => $pawn->finance->total)->sum();
+        $data = [
+            "allPawn" => $getData['pawn'],
+            "in" => $getData['in'],
+            "out" => $getData['out'],
+            "customersPawn" => $getData['customer'],
+            "deadlinesPawn" => $getData['deadline'],
+        ];
+        return json_encode($data);
+    }
+
+    private function _getDataDashboard($stores_id){
+        $pawn = Pawn::whereIn('store_id', $stores_id)->whereNotIn('id', Release::select('pawn_id')->get())->with('finance')->get()->map(fn($pawn) => $pawn->finance->total)->sum();
 
         $in = Finance::where('status','in')->whereIn('store_id', $stores_id)->sum('total');
 
         $out = Finance::where('status','out')->whereIn('store_id', $stores_id)->sum('total');
 
-        $customer = Pawn::whereNotIn('id', Release::select('pawn_id')->get())
-            ->whereIn('store_id', $stores_id)->count();
+        // $customer = Pawn::whereNotIn('id', Release::select('pawn_id')->get())
+        //     ->whereIn('store_id', $stores_id)->count();
+        $customer = Pawn::whereIn('store_id', $stores_id)->count();
 
         $deadline = Pawn::whereNotIn('pawns.id', Release::select('pawn_id')->get())
             ->join('finances', 'finances.id', '=', 'pawns.finance_id')
             ->whereRaw('DATE_ADD(finances.date, INTERVAL 30 DAY) < ?',[date('Y-m-d')])
             ->whereIn('pawns.store_id', $stores_id)->count();
 
-        $data = [
-            "allPawn" => $pawn,
+        return [
+            "pawn" => $pawn,
             "in" => $in,
             "out" => $out,
-            "customersPawn" => $customer,
-            "deadlinesPawn" => $deadline,
+            "customer" => $customer,
+            "deadline" => $deadline,
         ];
-        return json_encode($data);
     }
 }

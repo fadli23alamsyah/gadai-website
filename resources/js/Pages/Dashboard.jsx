@@ -48,10 +48,12 @@ export default function Dashboard(props) {
             <Head title="Dashboard" />
 
             <div className="py-1 -mx-4">
-                <select onChange={onChangeHandle} className='mx-4 border-[#F49D1A] border-[0.125em] rounded-[0.75em] py-2 focus:outline-none focus:ring-[#F49D1A] focus:ring-2 focus:ring-offset-2 focus:border-[#F49D1A]/60 active:border-[#F49D1A] transition-all ease-in-out'>
-                    <option value="all">Semua Toko</option>
-                    {props.stores.map((store, i)=> <option key={i} value={store.id}>{store.name}</option>)}
-                </select>
+                {props.stores?.length > 1 && (
+                    <select onChange={onChangeHandle} className='mx-4 border-[#F49D1A] border-[0.125em] rounded-[0.75em] py-2 focus:outline-none focus:ring-[#F49D1A] focus:ring-2 focus:ring-offset-2 focus:border-[#F49D1A]/60 active:border-[#F49D1A] transition-all ease-in-out'>
+                        <option value="all">Semua Toko</option>
+                        {props.stores.map((store, i)=> <option key={i} value={store.id}>{store.name}</option>)}
+                    </select>
+                )}
                 <div className='flex flex-wrap'>
                     <div className="w-full md:max-w-[50%] px-4 py-2">
                         <div className='bg-[#57429D] rounded-xl p-4 text-white text-xl shadow-lg shadow-[#57429D]/70'>
