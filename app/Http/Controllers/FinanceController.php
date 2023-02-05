@@ -15,11 +15,10 @@ class FinanceController extends Controller
         $stores = (Auth::user()->role === 'admin') 
             ? Store::select('id')->get() 
             : User::find(Auth::user()->id)->stores()->get()->map(fn($store) => $store->id);
-        $data = Finance::orderBy('created_at','desc')
-            ->whereIn('store_id', $stores)
-            ->with('store')->with('pawn')->with('release')->get();
+        $data = Finance::with(['store','pawn','release'])->orderBy('created_at','desc')
+            ->whereIn('store_id', $stores)->get();
         return Inertia::render('Finance/IndexFinance',[
-            "data" => $data,
+            "data" => $data->whereNull("pawn"),
         ]);
     }
 

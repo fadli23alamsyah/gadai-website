@@ -17,6 +17,8 @@ export default function IndexFinance(props){
     const [finance, setFinance] = useState({})
 
     useEffect(()=>{
+        console.log(Object.values(props.data))
+        // props.data.map(v => console.log(v.total))
         if(message) close()
     }, [])
 
@@ -75,7 +77,7 @@ export default function IndexFinance(props){
                                 </tr>
                             </thead>
                             <tbody>
-                                {props.data.map((item, i)=>
+                                {Object.values(props.data).map((item, i)=>
                                     <tr key={i}>
                                         <td>{i+1}</td>
                                         <td>{new Date(item.date).toLocaleDateString("id")}</td>
