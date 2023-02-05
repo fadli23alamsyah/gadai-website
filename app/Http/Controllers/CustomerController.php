@@ -65,6 +65,10 @@ class CustomerController extends Controller
             'store_id' => $request->store_id,
         ]);
 
+        // Update store balance
+        $store = Store::find($request->store_id);
+        $store->update(['balance' => $store->balance - $request->total]);
+
         if($save){
             return to_route('customer')->with("isSuccess", true)->with("message","Berhasil menambahkan");
         }
@@ -94,6 +98,7 @@ class CustomerController extends Controller
         ]);
 
         $pawn = Pawn::find($request->id);
+        $oldTotal = $pawn->finance->total;
         $pawn->update([
             'type' => $request->type,
             'interest' => $request->interest,
@@ -111,6 +116,10 @@ class CustomerController extends Controller
             'store_id' => $request->store_id,
         ]);
 
+        // Update store balance
+        $store = Store::find($request->store_id);
+        $store->update(['balance' => $store->balance - $request->total + $oldTotal]);
+
         if($pawn){
             return to_route('customer')->with("isSuccess", true)->with("message","Update berhasil");
         }
@@ -119,9 +128,14 @@ class CustomerController extends Controller
 
     public function destroy(Request $request){
         $pawn = Pawn::find($request->id);
+        $oldTotal = $pawn->finance->total;
         $pawn->delete();
         $pawn->customer()->delete();
         $pawn->finance()->delete();
+
+        // Update store balance
+        $store = Store::find($request->store_id);
+        $store->update(['balance' => $store->balance + $oldTotal]);
 
         if($pawn){
             return to_route('customer')->with("isSuccess", true)->with("message","Berhasil dihapus");
