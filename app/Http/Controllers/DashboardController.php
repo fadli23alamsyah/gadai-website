@@ -58,7 +58,8 @@ class DashboardController extends Controller
 
         $in = Finance::where('status','in')->whereIn('store_id', $stores_id)->sum('total');
 
-        $out = Finance::where('status','out')->whereIn('store_id', $stores_id)->sum('total');
+        // $out = Finance::where('status','out')->whereIn('store_id', $stores_id)->sum('total');
+        $out = Finance::with(['pawn'])->where('status','out')->whereIn('store_id', $stores_id)->get()->whereNull('pawn')->sum('total');
 
         $storeBalance = Store::whereIn('id', $stores_id)->sum('balance');
 
