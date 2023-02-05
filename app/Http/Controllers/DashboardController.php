@@ -27,6 +27,7 @@ class DashboardController extends Controller
             "allPawn" => $getData['pawn'],
             "in" => $getData['in'],
             "out" => $getData['out'],
+            "storeBalance" => $getData["storeBalance"],
             "customersPawn" => $getData['customer'],
             "deadlinesPawn" => $getData['deadline'],
         ]);
@@ -45,6 +46,7 @@ class DashboardController extends Controller
             "allPawn" => $getData['pawn'],
             "in" => $getData['in'],
             "out" => $getData['out'],
+            "storeBalance" => $getData["storeBalance"],
             "customersPawn" => $getData['customer'],
             "deadlinesPawn" => $getData['deadline'],
         ];
@@ -58,6 +60,8 @@ class DashboardController extends Controller
 
         $out = Finance::where('status','out')->whereIn('store_id', $stores_id)->sum('total');
 
+        $storeBalance = Store::whereIn('id', $stores_id)->sum('balance');
+
         $customer = Pawn::whereNotIn('id', Release::select('pawn_id')->get())
             ->whereIn('store_id', $stores_id)->count();
 
@@ -70,6 +74,7 @@ class DashboardController extends Controller
             "pawn" => $pawn,
             "in" => $in,
             "out" => $out,
+            "storeBalance" => $storeBalance,
             "customer" => $customer,
             "deadline" => $deadline,
         ];

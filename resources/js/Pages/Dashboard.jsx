@@ -17,7 +17,7 @@ export default function Dashboard(props) {
     useEffect(()=>{
         setData({
             allPawn: props.allPawn ?? 0,
-            storeBalance: props.in - props.out ?? 0,
+            storeBalance: props.storeBalance ?? 0,
             in: props.in ?? 0,
             out: props.out ?? 0,
             customersPawn: props.customersPawn ?? 0,
@@ -30,7 +30,7 @@ export default function Dashboard(props) {
         .then((response)=>{
             setData({
                 allPawn: response.data.allPawn ?? 0,
-                storeBalance: response.data.in - response.data.out ?? 0,
+                storeBalance: response.data.storeBalance ?? 0,
                 in: response.data.in ?? 0,
                 out: response.data.out ?? 0,
                 customersPawn: response.data.customersPawn ?? 0,
