@@ -6,17 +6,23 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/inertia-react';
 import DangerButton from "@/Components/DangerButton";
+import { formatRupiah } from "@/Utils/utilstext";
 
 export default function FormStore(props){
     const { data, setData, post, put, processing, errors, reset } = useForm({
         id: '',
         name: '',
         address: '',
+        balance: '',
     });
 
     const onHandleChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
     };
+
+    const onHandleChangeNominal = (event) => {
+        setData(event.target.name, event.target.value.replace(/[^0-9]/g,''))
+    }
 
     const submit = (e) => {
         e.preventDefault();
@@ -30,6 +36,7 @@ export default function FormStore(props){
                 id: props.store.id,
                 name: props.store.name,
                 address: props.store.address,
+                balance: props.store.balance,
             })
         }
     }, [])
@@ -75,6 +82,21 @@ export default function FormStore(props){
                             />
 
                             <InputError message={errors.address} className="mt-2" />
+                        </div>
+
+                        <div className="mt-4">
+                            <InputLabel forInput="balance" value="Saldo" />
+
+                            <TextInput
+                                id="balance"
+                                name="balance"
+                                value={formatRupiah(data.balance)}
+                                className="mt-1 block w-full"
+                                autoComplete="balance"
+                                handleChange={onHandleChangeNominal}
+                            />
+
+                            <InputError message={errors.balance} className="mt-2" />
                         </div>
 
                         <div className="flex flex-row mt-6">

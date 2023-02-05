@@ -18,7 +18,8 @@ class StoreController extends Controller
     public function store(Request $request){
         $data = $request->validate([
             'name' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'balance' => 'required|numeric',
         ]);
 
         if(Store::create($data)){
@@ -30,7 +31,8 @@ class StoreController extends Controller
     public function update(Request $request){
         $data = $request->validate([
             'name' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'balance' => 'required|numeric',
         ]);
 
         if(Store::where('id', $request->id)->update($data)){
