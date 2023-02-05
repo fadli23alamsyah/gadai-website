@@ -37,8 +37,8 @@ class FinanceController extends Controller
             'total' => 'required',
             'source' => 'required',
             'store_id' => 'required',
+            'date' => 'required|date',
         ]);
-        $data['date'] = date('Y-m-d');
         if(Finance::create($data)){
             return to_route('finance')->with("isSuccess", true)->with("message","Berhasil menambahkan");
         }
@@ -60,6 +60,7 @@ class FinanceController extends Controller
             'total' => 'required',
             'source' => 'required',
             'store_id' => 'required',
+            'date' => 'required|date',
         ]);
         if(Finance::where('id', $request->id)->update($data)){
             return to_route('finance')->with("isSuccess", true)->with("message","Update berhasil");

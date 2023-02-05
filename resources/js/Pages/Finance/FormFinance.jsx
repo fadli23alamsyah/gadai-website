@@ -11,6 +11,7 @@ import { formatRupiah } from "@/Utils/utilstext";
 export default function FormStore(props){
     const { data, setData, post, put, processing, errors, reset } = useForm({
         id: '',
+        date: '',
         status: '',
         total: '',
         source: '',
@@ -35,6 +36,7 @@ export default function FormStore(props){
         if(props.finance){
             setData({
                 id: props.finance.id,
+                date: props.finance.date,
                 status: props.finance.status,
                 total: props.finance.total,
                 source: props.finance.source,
@@ -56,6 +58,23 @@ export default function FormStore(props){
                 <div className='flex flex-col px-5 lg:pt-5'>
                     <form onSubmit={submit} method="post">
                         <div className="inline-block w-full md:w-1/2 md:pr-2">
+                            <InputLabel forInput="date" value="Tanggal" />
+
+                            <TextInput
+                                id="date"
+                                name="date"
+                                type="date"
+                                value={data.date}
+                                className="mt-1 block w-full"
+                                autoComplete="date"
+                                handleChange={onHandleChange}
+                            />
+
+                            <InputError message={errors.date} className="mt-2" />
+
+                        </div>
+
+                        <div className="inline-block w-full mt-4 md:w-1/2 md:pl-2 md:mt-0">
                             <InputLabel forInput="store" value="Toko" />
 
                             <select name="store_id" id="store" onChange={onHandleChange} className="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
@@ -69,7 +88,7 @@ export default function FormStore(props){
 
                         </div>
 
-                        <div className="inline-block w-full mt-4 md:w-1/2 md:pl-2 md:mt-0">
+                        <div className="inline-block w-full mt-4 md:w-1/2 md:pr-2">
                             <InputLabel forInput="status" value="Status Keuangan" />
 
                             <select name="status" id="status" onChange={onHandleChange} className="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
@@ -82,7 +101,7 @@ export default function FormStore(props){
 
                         </div>
 
-                        <div className="mt-4">
+                        <div className="inline-block w-full mt-4 md:w-1/2 md:pl-2 md:mt-0">
                             <InputLabel forInput="total" value="Total" />
 
                             <TextInput
