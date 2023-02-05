@@ -76,6 +76,10 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::delete('/marketprice', [MarketPriceController::class, 'destroy'])->name('marketprice.delete');
     Route::get('/marketprice/add', fn() => Inertia::render('Marketprice/FormMarketprice'))->name('marketprice.add');
     Route::get('/marketprice/edit/{marketprice}', fn(MarketPrice $marketprice) => Inertia::render('Marketprice/FormMarketprice', ["marketprice"=>$marketprice]))->name('marketprice.edit');
+
+    // Store for staf
+    Route::get('/store/info', [StoreController::class, 'info'])->name('store.info');
+    Route::put('/store/info', [StoreController::class, 'updateinfo'])->name('store.updateinfo');
     
     Route::middleware(['isAdmin'])->group(function(){
         // Store

@@ -41,6 +41,12 @@ export default function Authenticated({ auth, header, children }) {
                         <FontAwesomeIcon icon={faDollyBox} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
                         <span className='text-white ml-3'>Harga Pasar Barang</span>
                     </NavLink>
+                    {(auth.user.role === 'staf') && (
+                        <NavLink href={route('store.info')} active={route().current().split('.')[0] == 'store'}>
+                            <FontAwesomeIcon icon={faStore} className="text-white bg-[#FFBF00] p-2 rounded-md ml-4" /> 
+                            <span className='text-white ml-3'>Info Toko</span>
+                        </NavLink>
+                    )}
                     {(auth.user.role == 'admin') && 
                         <>
                             <div className='ml-2 text-white font-bold'>Admin Menu</div>

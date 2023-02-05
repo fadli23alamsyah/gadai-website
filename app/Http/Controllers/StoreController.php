@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Store;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class StoreController extends Controller
@@ -48,5 +50,26 @@ class StoreController extends Controller
             return to_route('store')->with("isSuccess", true)->with("message","Berhasil dihapus");
         }
         return to_route('store')->with("isSuccess", false)->with("message","Gagal dihapus, masih terdapat relasi untuk ".$request->name);
+    }
+
+    public function info(){
+        // Function for staf
+        $auth = Auth::user();
+        if($auth->role === 'admin') return to_route('store')->with(["isSuccess" => false, "message" => "Hanya untuk staf"]);
+        $store = User::find($auth->id)->stores()->first();
+        return Inertia::render('Store/InfoStore', ["store" => $store]);
+    }
+
+    public function updateinfo(Request $request){
+        $data = $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'balance' => 'required|numeric',
+        ]);
+
+        if(Store::where('id', $request->id)->update($data)){
+            return back()->with(["isSuccess" => true, "message" =>"Update berhasil"]);
+        }
+        return back()->with(["isSuccess" => true, "message" =>"Update gagal"]);
     }
 }
